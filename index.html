@@ -1271,64 +1271,64 @@ function repLimits(d,g){
   if(!c)return {err:"nema",row:r};
   return {row:r,rnt:c[0],andl:c[1]};
 }
-/* ---- Profil zarona u mjerilu (crtež je izveden iz istih brojeva kao planer; nijedna vrijednost nije upisana ručno) ---- */
-function profileSvg(o,r){
+/* ---- Profil zarona u mjerilu (2 ili 3 zarona; crtež je izveden iz istih brojeva kao planer, nijedna vrijednost nije upisana ručno) ---- */
+function profileSvg(o,r,x3){
   if(!r||r.err||!r.a||!r.b||!r.c||!(o.t2>0)||!(o.d1>0)||!(o.d2>0))return "";
   var VD=18,VA=9,SS=3,STOP=5;
   function dive(d,t){var td=Math.min(d/VD,t),asc=d>9?((d-STOP)/VA+SS+STOP/VA):d/VA;return {d:d,t:t,td:td,stop:d>9,asc:asc,total:t+asc};}
   function n1(x){return String(Math.round(x*10)/10).replace(".",",");}
   function X(x){return Math.round(x*10)/10;}
-  var A=dive(o.d1,o.t1),B=dive(o.d2,o.t2);
-  var W=1100,L=70,R=28,T=78,PH=190,gap=96,plotW=W-L-R-gap,sc=plotW/(A.total+B.total);
-  var axisMax=Math.max(9,Math.ceil(Math.max(o.d1,o.d2)/3)*3);
+  var three=!!(x3&&x3.d>0&&x3.t>0&&x3.c&&x3.g3);
+  var D=[dive(o.d1,o.t1),dive(o.d2,o.t2)];if(three)D.push(dive(x3.d,x3.t));
+  var pauses=[fmt(o.si)];if(three)pauses.push(fmt(x3.si));
+  var nb=D.length-1,bars=[{n:2,c:r.c,t:o.t2}];if(three)bars.push({n:3,c:x3.c,t:x3.t});
+  var W=1100,L=70,R=28,T=78,PH=190,gap=96,tot=0;D.forEach(function(q){tot+=q.total;});
+  var plotW=W-L-R-gap*nb,sc=plotW/tot,axisMax=Math.max(9,Math.ceil(Math.max.apply(null,D.map(function(q){return q.d;}))/3)*3);
   function y(m){return X(T+PH*m/axisMax);}
-  var x0=L,x1=L+A.total*sc+gap,xe0=x0+A.total*sc,xe1=x1+B.total*sc,yb=T+PH;
-  function path(x,D){var d=D.d,p=[[x,y(0)],[x+D.td*sc,y(d)],[x+D.t*sc,y(d)]],cx=x+D.t*sc;
-    if(D.stop){cx+=(d-STOP)/VA*sc;p.push([cx,y(STOP)]);cx+=SS*sc;p.push([cx,y(STOP)]);cx+=STOP/VA*sc;p.push([cx,y(0)]);}
-    else{cx+=d/VA*sc;p.push([cx,y(0)]);}
+  var xs=[],xe=[],cx=L;D.forEach(function(q,i){xs.push(cx);cx+=q.total*sc;xe.push(cx);cx+=gap;});
+  var yb=T+PH,H=430+(three?96:0);
+  function path(x,Q){var d=Q.d,p=[[x,y(0)],[x+Q.td*sc,y(d)],[x+Q.t*sc,y(d)]],c=x+Q.t*sc;
+    if(Q.stop){c+=(d-STOP)/VA*sc;p.push([c,y(STOP)]);c+=SS*sc;p.push([c,y(STOP)]);c+=STOP/VA*sc;p.push([c,y(0)]);}
+    else{c+=d/VA*sc;p.push([c,y(0)]);}
     return p.map(function(q,i){return (i?"L":"M")+X(q[0])+" "+X(q[1]);}).join(" ");}
-  var s='<svg viewBox="0 0 '+W+' 430" role="img" aria-labelledby="pf-t pf-d" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;font-family:Arial,sans-serif">';
-  s+='<title id="pf-t">Profil dva zarona u mjerilu</title><desc id="pf-d">Zaron 1: '+n1(o.d1)+' m, '+o.t1+' min na dnu, grupa '+r.a.g+'. Pauza '+fmt(o.si)+', nova grupa '+r.b.g+'. Zaron 2: '+n1(o.d2)+' m, '+o.t2+' min, '+(r.ok?"unutar":"iznad")+' granice. Spuštanje '+VD+' m/min, uspon '+VA+' m/min i zaustavljanje '+SS+' min na '+STOP+' m su pretpostavke prikaza.</desc>';
+  var desc='Zaron 1: '+n1(o.d1)+' m, '+o.t1+' min na dnu, grupa '+r.a.g+'. Pauza '+pauses[0]+', nova grupa '+r.b.g+'. Zaron 2: '+n1(o.d2)+' m, '+o.t2+' min, '+(r.ok?"unutar":"iznad")+' granice.'+(three?' Pauza '+pauses[1]+', nova grupa '+x3.g3+'. Zaron 3: '+n1(x3.d)+' m, '+x3.t+' min, '+(x3.ok?"unutar":"iznad")+' granice.':'')+' Spuštanje '+VD+' m/min, uspon '+VA+' m/min i zaustavljanje '+SS+' min na '+STOP+' m su pretpostavke prikaza.';
+  var s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-labelledby="pf-t pf-d" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;font-family:Arial,sans-serif">';
+  s+='<title id="pf-t">Profil '+(three?'tri':'dva')+' zarona u mjerilu</title><desc id="pf-d">'+desc+'</desc>';
   s+='<defs><pattern id="pf-h" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#10344B"/><line x1="0" y1="0" x2="0" y2="8" stroke="#65E5FF" stroke-width="2.5"/></pattern><pattern id="pf-x" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="8" height="8" fill="#3a1010"/><line x1="0" y1="0" x2="0" y2="8" stroke="#FF6B6B" stroke-width="2.5"/></pattern></defs>';
   s+='<rect x="'+L+'" y="'+T+'" width="'+(W-L-R)+'" height="'+PH+'" fill="#071B2B" stroke="#1B4057"/>';
   for(var m=0;m<=axisMax;m+=3){s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y(m)+'" y2="'+y(m)+'" stroke="#1B4057" stroke-width="'+(m===0?2:1)+'"/><text x="'+(L-8)+'" y="'+(y(m)+4)+'" text-anchor="end" fill="#AFC6D6" font-size="13">'+m+' m</text>';}
-  // sigurnosno zaustavljanje referentna linija na 5 m
   s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y(STOP)+'" y2="'+y(STOP)+'" stroke="#FFCB29" stroke-width="1" stroke-dasharray="3 5" opacity=".6"/>';
-  // pauza: prekinuta osa
-  var gx=xe0+gap/2;
-  s+='<rect x="'+X(xe0)+'" y="'+T+'" width="'+gap+'" height="'+PH+'" fill="#0B263A"/><path d="M'+X(gx-6)+' '+(T)+' l12 -8 M'+X(gx-6)+' '+yb+' l12 8" stroke="#AFC6D6" stroke-width="2" fill="none"/>';
-  s+='<text x="'+X(gx)+'" y="'+(T+PH/2-6)+'" text-anchor="middle" fill="#F3FAFF" font-size="15" font-weight="700">pauza '+fmt(o.si)+'</text><text x="'+X(gx)+'" y="'+(T+PH/2+14)+'" text-anchor="middle" fill="#AFC6D6" font-size="12">osa prekinuta</text>';
-  [[x0,A,"d1"],[x1,B,"d2"]].forEach(function(e){var x=e[0],D=e[1],p=path(x,D);
-    s+='<path d="'+p+' Z" fill="#087EAD" opacity=".28"/><path d="'+p+'" fill="none" stroke="#65E5FF" stroke-width="3" stroke-linejoin="round"/>';
-    s+='<text x="'+X(x+(D.td+D.t)/2*sc)+'" y="'+(y(D.d)-8)+'" text-anchor="middle" fill="#F3FAFF" font-size="15" font-weight="700">'+n1(D.d)+' m</text>';
-    if(D.stop)s+='<text x="'+X(x+(D.t+(D.d-STOP)/VA+SS/2)*sc)+'" y="'+(y(STOP)+17)+'" text-anchor="middle" fill="#FFCB29" font-size="11">'+STOP+' m</text><text x="'+X(x+(D.t+(D.d-STOP)/VA+SS/2)*sc)+'" y="'+(y(STOP)+30)+'" text-anchor="middle" fill="#FFCB29" font-size="11">'+SS+' min</text>';
-    // zagrada: vrijeme na dnu (od napuštanja površine do početka uspona)
-    var bx0=x,bx1=x+D.t*sc,by=yb+22;
-    s+='<path d="M'+X(bx0)+' '+(by-6)+' v6 H'+X(bx1)+' v-6" fill="none" stroke="#AFC6D6" stroke-width="2"/><text x="'+X((bx0+bx1)/2)+'" y="'+(by+18)+'" text-anchor="middle" fill="#F3FAFF" font-size="13">vrijeme na dnu '+D.t+' min</text>';
-  });
-  // slova grupa
-  function badge(cx,g,col,tip){return '<circle cx="'+X(cx)+'" cy="'+(T-34)+'" r="17" fill="'+col+'"/><text x="'+X(cx)+'" y="'+(T-28)+'" text-anchor="middle" font-size="19" font-weight="800" fill="#03101B">'+g+'</text><text x="'+X(cx)+'" y="'+(T-58)+'" text-anchor="'+(cx>W-130?"end":"middle")+'" font-size="12" fill="#AFC6D6">'+tip+'</text>';}
-  s+=badge(xe0,r.a.g,"#65E5FF","poslije zarona 1");
-  s+=badge(x1,r.b.g,"#FFCB29","poslije pauze");
-  if(r.ok&&r.after&&!r.after.err)s+=badge(xe1,r.after.g,"#65E5FF","poslije zarona 2");
-  else if(!r.ok)s+=badge(xe1,"!","#FF6B6B","iznad granice");
-  s+='<line x1="'+X(xe0)+'" x2="'+X(x1)+'" y1="'+(T-34)+'" y2="'+(T-34)+'" stroke="#AFC6D6" stroke-width="2" stroke-dasharray="2 5"/>';
-  // traka NDL = RNT + ANDL (zaron 2)
-  var c=r.c,ndl=t1Row(c.row.m).ndl,by0=yb+92;
-  s+='<text x="'+L+'" y="'+(by0-26)+'" fill="#F3FAFF" font-size="14" font-weight="700">Zaron 2: NDL na '+c.row.m+' m (red tablice) '+(ndl===null?"nema (N/L)":"= "+ndl+" min")+'</text>';
-  if(ndl!==null){var bw=plotW*0.8,k=bw/Math.max(ndl,c.rnt+o.t2),bh=34;
-    s+='<rect x="'+L+'" y="'+by0+'" width="'+X(c.rnt*k)+'" height="'+bh+'" fill="url(#pf-h)" stroke="#65E5FF"/>';
-    var used=Math.min(o.t2,c.andl>0?c.andl:0),over=Math.max(0,o.t2-(c.andl>0?c.andl:0));
-    s+='<rect x="'+X(L+c.rnt*k)+'" y="'+by0+'" width="'+X(used*k)+'" height="'+bh+'" fill="#12B9E8" stroke="#65E5FF"/>';
-    if(over>0)s+='<rect x="'+X(L+(c.rnt+used)*k)+'" y="'+by0+'" width="'+X(over*k)+'" height="'+bh+'" fill="url(#pf-x)" stroke="#FF6B6B"/>';
-    s+='<rect x="'+L+'" y="'+by0+'" width="'+X(ndl*k)+'" height="'+bh+'" fill="none" stroke="#FFCB29" stroke-width="2" stroke-dasharray="6 4"/>';
-    s+='<text x="'+X(L+c.rnt*k/2)+'" y="'+(by0+bh+20)+'" text-anchor="middle" fill="#AFC6D6" font-size="12">RNT '+c.rnt+' min</text>';
-    s+='<text x="'+X(L+(c.rnt+used/2)*k)+'" y="'+(by0+bh+20)+'" text-anchor="middle" fill="#F3FAFF" font-size="12">plan '+o.t2+' min</text>';
-    s+='<text x="'+X(L+ndl*k)+'" y="'+(by0-8)+'" text-anchor="end" fill="#FFCB29" font-size="12">granica NDL '+ndl+' min (ANDL '+c.andl+' min)</text>';
-  }else{s+='<text x="'+L+'" y="'+(by0+20)+'" fill="#AFC6D6" font-size="13">RNT '+c.rnt+' min. N/L ne znači neograničeno vrijeme: zaron i dalje ograničavaju plan i sigurnosni faktori.</text>';}
-  return '<div class="pf"><h3 style="margin:18px 0 6px">Profil u mjerilu</h3>'+s+'</svg><p class="lg">Crtež je u mjerilu po dubini i po vremenu; samo je pauza prekinuta. Brzina spuštanja ('+VD+' m/min), uspon ('+VA+' m/min) i zaustavljanje ('+SS+' min na '+STOP+' m) su pretpostavke prikaza, a vrijeme na dnu računa se od napuštanja površine do početka uspona. Tabličnu granicu ne mijenjaju.</p></div>';
+  for(var p=0;p<nb;p++){var gx=xe[p]+gap/2;
+    s+='<rect x="'+X(xe[p])+'" y="'+T+'" width="'+gap+'" height="'+PH+'" fill="#0B263A"/><path d="M'+X(gx-6)+' '+T+' l12 -8 M'+X(gx-6)+' '+yb+' l12 8" stroke="#AFC6D6" stroke-width="2" fill="none"/>';
+    s+='<text x="'+X(gx)+'" y="'+(T+PH/2-6)+'" text-anchor="middle" fill="#F3FAFF" font-size="15" font-weight="700">pauza '+pauses[p]+'</text><text x="'+X(gx)+'" y="'+(T+PH/2+14)+'" text-anchor="middle" fill="#AFC6D6" font-size="12">osa prekinuta</text>';}
+  D.forEach(function(Q,i){var x=xs[i],pd=path(x,Q);
+    s+='<path d="'+pd+' Z" fill="#087EAD" opacity=".28"/><path d="'+pd+'" fill="none" stroke="#65E5FF" stroke-width="3" stroke-linejoin="round"/>';
+    s+='<text x="'+X(x+(Q.td+Q.t)/2*sc)+'" y="'+(y(Q.d)-8)+'" text-anchor="middle" fill="#F3FAFF" font-size="15" font-weight="700">'+n1(Q.d)+' m</text>';
+    if(Q.stop)s+='<text x="'+X(x+(Q.t+(Q.d-STOP)/VA+SS/2)*sc)+'" y="'+(y(STOP)+17)+'" text-anchor="middle" fill="#FFCB29" font-size="11">'+STOP+' m</text><text x="'+X(x+(Q.t+(Q.d-STOP)/VA+SS/2)*sc)+'" y="'+(y(STOP)+30)+'" text-anchor="middle" fill="#FFCB29" font-size="11">'+SS+' min</text>';
+    var bx0=x,bx1=x+Q.t*sc,by=yb+22;
+    s+='<path d="M'+X(bx0)+' '+(by-6)+' v6 H'+X(bx1)+' v-6" fill="none" stroke="#AFC6D6" stroke-width="2"/><text x="'+X((bx0+bx1)/2)+'" y="'+(by+18)+'" text-anchor="middle" fill="#F3FAFF" font-size="13">vrijeme na dnu '+Q.t+' min</text>';});
+  function badge(c,g,col,tip){return '<circle cx="'+X(c)+'" cy="'+(T-34)+'" r="17" fill="'+col+'"/><text x="'+X(c)+'" y="'+(T-28)+'" text-anchor="middle" font-size="19" font-weight="800" fill="#03101B">'+g+'</text><text x="'+X(c)+'" y="'+(T-58)+'" text-anchor="'+(c>W-130?"end":"middle")+'" font-size="12" fill="#AFC6D6">'+tip+'</text>';}
+  s+=badge(xe[0],r.a.g,"#65E5FF","poslije zarona 1")+badge(xs[1],r.b.g,"#FFCB29","poslije pauze");
+  s+='<line x1="'+X(xe[0])+'" x2="'+X(xs[1])+'" y1="'+(T-34)+'" y2="'+(T-34)+'" stroke="#AFC6D6" stroke-width="2" stroke-dasharray="2 5"/>';
+  var g2=(r.ok&&r.after&&!r.after.err)?r.after.g:null;
+  if(g2)s+=badge(xe[1],g2,"#65E5FF","poslije zarona 2");else if(!r.ok)s+=badge(xe[1],"!","#FF6B6B","iznad granice");
+  if(three){s+=badge(xs[2],x3.g3,"#FFCB29","poslije pauze 2");s+='<line x1="'+X(xe[1])+'" x2="'+X(xs[2])+'" y1="'+(T-34)+'" y2="'+(T-34)+'" stroke="#AFC6D6" stroke-width="2" stroke-dasharray="2 5"/>';
+    if(x3.after)s+=badge(xe[2],x3.after,"#65E5FF","poslije zarona 3");else if(!x3.ok)s+=badge(xe[2],"!","#FF6B6B","iznad granice");}
+  // trake NDL = RNT + ANDL
+  var by0=yb+92;
+  bars.forEach(function(B,k){var c=B.c,ndl=t1Row(c.row.m).ndl,top=by0+k*96;
+    s+='<text x="'+L+'" y="'+(top-26)+'" fill="#F3FAFF" font-size="14" font-weight="700">Zaron '+B.n+': NDL na '+c.row.m+' m (red tablice) '+(ndl===null?"nema (N/L)":"= "+ndl+" min")+'</text>';
+    if(ndl!==null){var bw=plotW*0.8,kk=bw/Math.max(ndl,c.rnt+B.t),bh=34;
+      s+='<rect x="'+L+'" y="'+top+'" width="'+X(c.rnt*kk)+'" height="'+bh+'" fill="url(#pf-h)" stroke="#65E5FF"/>';
+      var used=Math.min(B.t,c.andl>0?c.andl:0),over=Math.max(0,B.t-(c.andl>0?c.andl:0));
+      s+='<rect x="'+X(L+c.rnt*kk)+'" y="'+top+'" width="'+X(used*kk)+'" height="'+bh+'" fill="#12B9E8" stroke="#65E5FF"/>';
+      if(over>0)s+='<rect x="'+X(L+(c.rnt+used)*kk)+'" y="'+top+'" width="'+X(over*kk)+'" height="'+bh+'" fill="url(#pf-x)" stroke="#FF6B6B"/>';
+      s+='<rect x="'+L+'" y="'+top+'" width="'+X(ndl*kk)+'" height="'+bh+'" fill="none" stroke="#FFCB29" stroke-width="2" stroke-dasharray="6 4"/>';
+      s+='<text x="'+X(L+c.rnt*kk/2)+'" y="'+(top+bh+20)+'" text-anchor="middle" fill="#AFC6D6" font-size="12">RNT '+c.rnt+' min</text><text x="'+X(L+(c.rnt+used/2)*kk)+'" y="'+(top+bh+20)+'" text-anchor="middle" fill="#F3FAFF" font-size="12">plan '+B.t+' min</text><text x="'+X(L+ndl*kk)+'" y="'+(top-8)+'" text-anchor="end" fill="#FFCB29" font-size="12">granica NDL '+ndl+' min (ANDL '+c.andl+' min)</text>';
+    }else{s+='<text x="'+L+'" y="'+(top+20)+'" fill="#AFC6D6" font-size="13">RNT '+c.rnt+' min. N/L ne znači neograničeno vrijeme: zaron i dalje ograničavaju plan i sigurnosni faktori.</text>';}});
+  return '<div class="pf"><h3 style="margin:18px 0 6px">Profil u mjerilu</h3>'+s+'</svg><p class="lg">Crtež je u mjerilu po dubini i po vremenu; samo su pauze prekinute. Brzina spuštanja ('+VD+' m/min), uspon ('+VA+' m/min) i zaustavljanje ('+SS+' min na '+STOP+' m) su pretpostavke prikaza, a vrijeme na dnu računa se od napuštanja površine do početka uspona. Tabličnu granicu ne mijenjaju.</p></div>';
 }
-function profileScaleOk(){var o={d1:18,t1:40,si:60,d2:12,t2:30,cold:false},r=plan(o),sv=profileSvg(o,r),re=/M([\d.]+) [\d.]+ v6 H([\d.]+) v-6/g,m,w=[];while((m=re.exec(sv)))w.push((+m[2]-+m[1]));return w.length===2&&Math.abs(w[0]/o.t1-w[1]/o.t2)<0.01?"1":"0";}
+function profileScaleOk(){var o={d1:18,t1:40,si:60,d2:12,t2:30,cold:false},r=plan(o),re=/M([\d.]+) [\d.]+ v6 H([\d.]+) v-6/g;function w(sv){var m,a=[];re.lastIndex=0;while((m=re.exec(sv)))a.push((+m[2]-+m[1]));return a;}var s2=w(profileSvg(o,r)),b3=newGroup(r.after.g,60),c3=repLimits(9,b3.g),x3={d:9,t:20,si:60,g2:r.after.g,g3:b3.g,c:c3,ok:true,after:"E"},s3=w(profileSvg(o,r,x3));var ok2=s2.length===2&&Math.abs(s2[0]/o.t1-s2[1]/o.t2)<0.01,ok3=s3.length===3&&Math.abs(s3[0]/o.t1-s3[1]/o.t2)<0.01&&Math.abs(s3[2]/20-s3[0]/o.t1)<0.01;return ok2&&ok3?"1":"0";}
 function plan(o){
   var out={steps:[]};
   /* Defensive validation: UI attributes are not a substitute for model validation. */
@@ -1455,6 +1455,7 @@ h+=step(c.rnt,"Zaron 2 na "+c.row.m+" m ("+mR(c.row)+" m)","Tablica 3, grupa "+b
 if(o.t2>0){h+='<div class="vd '+(r.ok?"ok":"no")+'">'+(r.ok?(c.andl===null?"Tablica ne ograničava ovo vrijeme (N/L), ali ga ograničavaju plan i sigurnosni faktori.":"Plan "+o.t2+" min je unutar granice ("+c.rnt+" + "+o.t2+" = "+r.total+" min)."):"Plan "+o.t2+" min PREKORAČUJE granicu od "+c.andl+" min.")+"</div>";
 if(r.ok&&r.after&&r.after.err)h+='<div class="st"><div class="gx">i</div><div><b>Ukupno vrijeme '+r.total+' min je izvan opsega tablice 1 za '+c.row.m+' m.</b><small>Grupu poslije zarona 2 tablica ne daje; zaron 3 dogovori s instruktorom.</small></div></div>';
 if(r.ok&&r.after&&!r.after.err){mark("a-"+r.after.row.ft+"-"+r.after.g);h+=step(r.after.g,"Poslije zarona 2: grupa "+r.after.g,"Tablica 1, red "+r.after.row.m+" m, ukupno "+r.total+" min. Za zaron 3 ulaziš u tablicu 2 sa slovom "+r.after.g+".");}}
+var x3=null;
 var d3=parseFloat(F.d3.value),t3=parseFloat(F.t3.value),si2=(parseInt(F.sh2.value,10)||0)*60+(parseInt(F.sm2.value,10)||0);
 if(Number.isFinite(d3)&&d3>0){
  if(!(r.ok&&r.after&&!r.after.err)){h+='<div class="st"><div class="gx">i</div><div><b>Zaron 3 se računa tek kad je zaron 2 unutar granice i ima grupu.</b></div></div>';}
@@ -1471,9 +1472,10 @@ if(Number.isFinite(d3)&&d3>0){
     if(c3.via)h+='<div class="st"><div class="gx">i</div><div><b>Za grupu '+b3.g+' na '+c3.via+' m tablica nema polja: čita se red 9 m.</b></div></div>';
     h+=step(c3.rnt,"Zaron 3 na "+c3.row.m+" m ("+mR(c3.row)+" m)","Tablica 3, grupa "+b3.g+": RNT "+c3.rnt+" min, ANDL "+(c3.andl===null?"N/L":c3.andl+" min"),"ok");
     var ok3=c3.andl===null||t3<=c3.andl,tot3=c3.rnt+t3;
+    x3={d:d3,t:t3,si:si2,g2:g2,g3:b3.g,c:c3,ok:ok3,tot:tot3,after:null};
     h+='<div class="vd '+(ok3?"ok":"no")+'">'+(ok3?"Plan "+t3+" min je unutar granice ("+c3.rnt+" + "+t3+" = "+tot3+" min).":"Plan "+t3+" min PREKORAČUJE granicu od "+c3.andl+" min.")+'</div>';
-    if(ok3){var a3=groupFor(c3.row.m,tot3,o.cold);if(a3.err)h+='<div class="st"><div class="gx">i</div><div><b>Ukupno vrijeme '+tot3+' min je izvan opsega tablice 1.</b></div></div>';else{mark("a-"+a3.row.ft+"-"+a3.g);h+=step(a3.g,"Poslije zarona 3: grupa "+a3.g,"Tablica 1, red "+a3.row.m+" m, ukupno "+tot3+" min. Za let poslije više zarona: najmanje 18 h (DAN).");}}}}}}
-out.innerHTML=h+profileSvg(o,r);}
+    if(ok3){var a3=groupFor(c3.row.m,tot3,o.cold);if(a3.err)h+='<div class="st"><div class="gx">i</div><div><b>Ukupno vrijeme '+tot3+' min je izvan opsega tablice 1.</b></div></div>';else{x3.after=a3.g;mark("a-"+a3.row.ft+"-"+a3.g);h+=step(a3.g,"Poslije zarona 3: grupa "+a3.g,"Tablica 1, red "+a3.row.m+" m, ukupno "+tot3+" min. Za let poslije više zarona: najmanje 18 h (DAN).");}}}}}}
+out.innerHTML=h+profileSvg(o,r,x3);}
 ids.forEach(function(i){F[i].addEventListener("input",function(){touched=true;run();});F[i].addEventListener("change",function(){touched=true;run();});});run();
 /* dive profile draw */
 var pf=$("#pf");if(pf&&"IntersectionObserver" in window&&!RM){var L=pf.getTotalLength?pf.getTotalLength():0;if(L){pf.style.strokeDasharray=L;pf.style.strokeDashoffset=L;var po=new IntersectionObserver(function(es){if(es[0].isIntersecting){pf.style.transition="stroke-dashoffset 3.2s ease-in-out";pf.style.strokeDashoffset=0;po.disconnect();}},{threshold:.3});po.observe(pf);}}
@@ -1718,7 +1720,7 @@ function ceilP(S,gf){var c=0,lead=0;for(var i=0;i<16;i++){var p=S.n[i]+S.h[i],a=
  t=(p-a*gf)/(gf/b+1-gf);if(t>c){c=t;lead=i;}}return{p:c,lead:lead};}
 function cp(S){return{n:S.n.slice(),h:S.h.slice()};}
 Z.deco=function(o,rho,patm){
- var d=o.d,t=o.t,fo=o.fo,fh=o.fh,gl=o.gfl/100,gh=o.gfh/100,vd=18,va=9;
+ var sn=o.snap,d=o.d,t=o.t,fo=o.fo,fh=o.fh,gl=o.gfl/100,gh=o.gfh/100,vd=18,va=9;
  if(!(d>0&&d<=100&&t>0&&t<=300&&fo>=0.05&&fh>=0&&fo+fh<=1+1e-9&&gl>0&&gh>0&&gl<=gh&&gh<=1))
   return{err:"Dubina 0–100 m, vrijeme 1–300 min, FO₂ ≥ 0,05, FO₂ + FHe ≤ 1, 0 < GF low ≤ GF high ≤ 100."};
  var fn=1-fo-fh,td=d/vd;if(t<td)return{err:"Vrijeme na dnu mora uključiti spuštanje ("+td.toFixed(1).replace(".",",")+" min pri 18 m/min)."};
@@ -1728,6 +1730,7 @@ Z.deco=function(o,rho,patm){
  var N=cp(S),ndl=null,tt=td;
  if(ceilP(N,gh).p>patm)ndl=0;else{while(tt<999){var M=cp(N);seg(M,P(d),P(d),fn,fh,1);if(ceilP(M,gh).p>patm)break;N=M;tt+=1;}ndl=tt>=999?null:Math.floor(tt);}
  seg(S,P(d),P(d),fn,fh,t-td);
+ if(sn)sn.push({lab:"bottom",z:d,n:S.n.slice(),h:S.h.slice()}); /* opcioni snimak stanja tkiva; ne utiče na račun */
  var lead=ceilP(S,gh).lead,stops=[],run=t,z=d;
  var c0=Z0(ceilP(S,gl).p);
  if(ceilP(S,gh).p<=patm&&c0<=0){ /* bez obaveze */ }
@@ -1735,12 +1738,14 @@ Z.deco=function(o,rho,patm){
  if(ceilP(S,gh).p>patm||first>0){
   if(first<3)first=3;
   seg(S,P(z),P(first),fn,fh,(z-first)/va);run+=(z-first)/va;z=first;
+  if(sn)sn.push({lab:"first",z:first,n:S.n.slice(),h:S.h.slice()});
   var gfAt=function(x){return gh+(gl-gh)*x/first;};
   while(z>0){var next=z-3,mins=0;
    while(Z0(ceilP(S,gfAt(next)).p)>next+1e-9&&mins<600){seg(S,P(z),P(z),fn,fh,1);mins++;}
    if(mins>0)stops.push([z,mins]);run+=mins;
    seg(S,P(z),P(next),fn,fh,3/va);run+=3/va;z=next;}
- }else{run+=d/va;}
+ }else{run+=d/va;if(sn)seg(S,P(d),P(0),fn,fh,d/va);}
+ if(sn)sn.push({lab:"surface",z:0,n:S.n.slice(),h:S.h.slice()});
  var tts=run-t;
  return{ndl:ndl,stops:stops,tts:tts,run:run,lead:lead+1,first:stops.length?stops[0][0]:0,td:td};};
 })(FZ);
@@ -1809,7 +1814,7 @@ function fzTests(){
  t("Balast: 90 kg, more vs slatka (kg)",FZ.ballast(90,12,150,1.01325).sea,2.25,1e-9);
  t("ZH-L16C 100/100: NDL zrak 18 m (regresija, min)",FZ.deco({d:18,t:20,fo:.21,fh:0,gfl:100,gfh:100},1025,1.01325).ndl,59,0);
  t("ZH-L16C 100/100: NDL zrak 30 m (regresija, min)",FZ.deco({d:30,t:10,fo:.21,fh:0,gfl:100,gfh:100},1025,1.01325).ndl,16,0);
- t("Jedinice: 1 bar u psi",FZ.conv(1,0).psi,14.5038,0.0001);
+ t("Deco: opcioni snimak tkiva ne mijenja rezultat (1 = jednako)",(function(){var a=JSON.stringify(FZ.deco({d:30,t:25,fo:.21,fh:0,gfl:30,gfh:70},1025,1.01325)),sn=[],b=JSON.stringify(FZ.deco({d:30,t:25,fo:.21,fh:0,gfl:30,gfh:70,snap:sn},1025,1.01325));return a===b&&sn.length===3?1:0;})(),1,0);  t("Jedinice: 1 bar u psi",FZ.conv(1,0).psi,14.5038,0.0001);
  t("Jedinice: 18 m u stopama",FZ.conv(0,18).ft,59.055,0.001);
  t("Uspon: 18 m, 9 m/min, 3 min na 5 m (min)",FZ.ascent(18,9,5,3,20,12,1025,1.01325).tt,5.0,1e-9);
  t("Uspon: zrak, RMV 20, more (L)",FZ.ascent(18,9,5,3,20,12,1025,1.01325).L,165.474,0.005);
@@ -3611,10 +3616,33 @@ function mk(id,opts){var h=d.getElementById(id);if(!h)return null;var done=false
 /* ---- Profil uspona sa dekompresijskim zaustavljanjima (izračun: FZ.deco, ZH-L16C s gradijent faktorima) ---- */
 (function(){
   var el=document.getElementById("gc-dk");if(!el||typeof FZ==="undefined")return;
-  var RHO=1025,PA=1.01325,VA=9,W=1100,H=400,L=76,R=30,T=30,B=64,PW=W-L-R,PH=H-T-B;
+  var RHO=1025,PA=1.01325,VA=9,W=1100,H=410,L=76,R=30,T=30,B=64,PW=W-L-R,PH=H-T-B;
   function n1(x){return String(Math.round(x*10)/10).replace(".",",");}
   function TX(a,t,f){return '<text '+a+' fill="#03101B" stroke="#03101B" stroke-width="4" stroke-linejoin="round">'+t+'</text><text '+a+' fill="'+f+'">'+t+'</text>';}
-  function model(d,t,gl,gh){return FZ.deco({d:d,t:t,fo:.21,fh:0,gfl:gl,gfh:gh},RHO,PA);}
+  function model(d,t,gl,gh,snap){var o={d:d,t:t,fo:.21,fh:0,gfl:gl,gfh:gh};if(snap)o.snap=snap;return FZ.deco(o,RHO,PA);}
+  /* opterećenje tkiva = gradijent faktor: (P_t − P_amb) / (M(P_amb) − P_amb), M(P_amb) = P_amb/b + a (ZH-L16C, a i b ponderisani po N₂ i He kao u modelu) */
+  function ambOf(sn){return sn.lab==="first"?FZ.pAbs(sn.z,RHO,PA):PA;}
+  function tisGF(sn,amb){amb=amb||ambOf(sn);var C=FZ.ZHL16C,o=[];for(var i=0;i<16;i++){var n=sn.n[i],h=sn.h[i],p=n+h,a=(C.AN[i]*n+C.AH[i]*h)/p,b=(C.BN[i]*n+C.BH[i]*h)/p,M=amb/b+a;o.push(100*(p-amb)/(M-amb));}return o;}
+  function tisSvg(snaps,gl,gh,first){
+    var C=FZ.ZHL16C,PWd=Math.floor((W-120-R-2*24)/3),XM=120,rowH=17,top=80,hh=top+16*rowH+36;
+    var titles={bottom:"Kraj vremena na dnu",first:"Dolazak na prvo zaustavljanje ("+first+" m)",surface:"Na površini, poslije uspona"},subs={bottom:"kad bi izronio odmah",first:"pritisak na dubini zaustavljanja",surface:"pritisak na površini"};
+    var s='<svg viewBox="0 0 '+W+' '+hh+'" role="img" aria-labelledby="ti-t ti-d" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;font-family:Arial,sans-serif"><title id="ti-t">Opterećenje 16 tkiva (ZH-L16C)</title><desc id="ti-d">Za svako od 16 tkiva prikazano je opterećenje kao postotak M-vrijednosti na površini u tri trenutka zarona. Granica GF high je '+gh+' %.</desc>';
+    s+='<defs><pattern id="ti-y" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="7" height="7" fill="#3a2f08"/><line x1="0" y1="0" x2="0" y2="7" stroke="#FFCB29" stroke-width="2.5"/></pattern><pattern id="ti-r" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="7" height="7" fill="#3a1010"/><line x1="0" y1="0" x2="0" y2="7" stroke="#FF6B6B" stroke-width="2.5"/></pattern></defs>';
+    for(var i=0;i<16;i++){s+='<text x="'+(XM-8)+'" y="'+(top+i*rowH+12)+'" text-anchor="end" fill="#AFC6D6" font-size="12">'+(i+1)+' · '+C.HN[i]+' min</text>';}
+    snaps.forEach(function(sn,k){
+      var x0=XM+k*(PWd+24),lim=sn.lab==="first"?gl:gh,limN=sn.lab==="first"?"GF low":"GF high",gf=tisGF(sn),sx=function(v){return x0+PWd*Math.max(0,Math.min(v,120))/120;},mx=0,mi=0;
+      gf.forEach(function(v,i){if(v>mx){mx=v;mi=i;}});
+      s+='<text x="'+x0+'" y="18" fill="#F3FAFF" font-size="14" font-weight="700">'+titles[sn.lab]+'</text><text x="'+x0+'" y="38" fill="#AFC6D6" font-size="12">'+subs[sn.lab]+'</text><text x="'+x0+'" y="54" fill="#F3FAFF" font-size="12">najviše: tkivo '+(mi+1)+' · '+n1(mx)+' %</text>';
+      s+='<rect x="'+x0+'" y="'+top+'" width="'+PWd+'" height="'+(16*rowH)+'" fill="#071B2B" stroke="#1B4057"/>';
+      [0,25,50,75,100].forEach(function(g){s+='<line x1="'+sx(g)+'" x2="'+sx(g)+'" y1="'+top+'" y2="'+(top+16*rowH)+'" stroke="#1B4057"/><text x="'+sx(g)+'" y="'+(top+16*rowH+16)+'" text-anchor="middle" fill="#AFC6D6" font-size="11">'+g+'</text>';});
+      gf.forEach(function(v,i){var y=top+i*rowH+2,w=sx(Math.max(0,v))-x0,fill=v>100?"url(#ti-r)":(v>lim?"url(#ti-y)":"#12B9E8"),st=v>100?"#FF6B6B":(v>lim?"#FFCB29":"#65E5FF");
+        s+='<rect x="'+x0+'" y="'+y+'" width="'+Math.max(0,w).toFixed(1)+'" height="'+(rowH-4)+'" fill="'+fill+'" stroke="'+st+'"'+(i===mi?' stroke-width="2.5"':'')+'/>';
+        if(v<0)s+='<text x="'+(x0+4)+'" y="'+(y+10)+'" fill="#AFC6D6" font-size="10">&lt; 0</text>';});
+      s+='<line x1="'+sx(lim)+'" x2="'+sx(lim)+'" y1="'+(top-4)+'" y2="'+(top+16*rowH)+'" stroke="#FFCB29" stroke-width="2" stroke-dasharray="5 4"/><line x1="'+sx(100)+'" x2="'+sx(100)+'" y1="'+(top-4)+'" y2="'+(top+16*rowH)+'" stroke="#FF6B6B" stroke-width="2"/>';
+      s+=TX('x="'+(sx(lim)-4)+'" y="'+(top-8)+'" text-anchor="end" font-size="11"',limN+' '+lim+' %','#FFCB29');if(k===0)s+=TX('x="'+(sx(100)+4)+'" y="'+(top-8)+'" font-size="11"','M = 100 %','#FF8A8A');
+    });
+    return s+'</svg>';
+  }
   /* točke profila rekonstruisane iz izlaza modela: spuštanje, dno, uspon 9 m/min do prvog zaustavljanja, zaustavljanja u koracima po 3 m */
   function points(d,t,r){
     var p=[[0,0],[r.td,d],[t,d]],x=t,z=d;
@@ -3631,16 +3659,17 @@ function mk(id,opts){var h=d.getElementById(id);if(!h)return null;var done=false
     for(var z=0;z<=dmax;z+=3){s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+sy(z)+'" y2="'+sy(z)+'" stroke="#1B4057"/><text x="'+(L-8)+'" y="'+(sy(z)+4)+'" text-anchor="end" fill="#AFC6D6" font-size="12">'+z+' m</text>';}
     var step=tmax>120?20:(tmax>60?10:5);
     for(var m=0;m<=tmax+1e-9;m+=step){s+='<line x1="'+sx(m)+'" x2="'+sx(m)+'" y1="'+T+'" y2="'+(T+PH)+'" stroke="#1B4057" stroke-dasharray="2 5"/><text x="'+sx(m)+'" y="'+(T+PH+20)+'" text-anchor="middle" fill="#AFC6D6" font-size="12">'+m+'</text>';}
-    s+='<text x="'+(L+PW/2)+'" y="'+(H-10)+'" text-anchor="middle" fill="#F3FAFF" font-size="14">vrijeme od napuštanja površine (min)</text>';
+    s+='<text x="'+(L+PW/2)+'" y="'+(H-6)+'" text-anchor="middle" fill="#F3FAFF" font-size="14">vrijeme od napuštanja površine (min)</text>';
     var path=pts.map(function(q,i){return (i?"L":"M")+sx(q[0]).toFixed(1)+" "+sy(q[1]).toFixed(1);}).join(" ");
     s+='<path d="'+path+' L'+sx(tmax).toFixed(1)+' '+sy(0)+' Z" fill="#087EAD" opacity=".25"/><path d="'+path+'" fill="none" stroke="#65E5FF" stroke-width="3" stroke-linejoin="round"/>';
     // vrijeme na dnu
-    s+='<path d="M'+sx(0)+' '+(T+PH+34)+' v6 H'+sx(t).toFixed(1)+' v-6" fill="none" stroke="#AFC6D6" stroke-width="2"/>'+TX('x="'+(sx(t)/2+L/2).toFixed(1)+'" y="'+(T+PH+54)+'" text-anchor="middle" font-size="12"','dno: '+n1(t)+' min','#F3FAFF');
+    s+='<path d="M'+sx(0)+' '+(T+PH+30)+' v6 H'+sx(t).toFixed(1)+' v-6" fill="none" stroke="#AFC6D6" stroke-width="2"/>'+TX('x="'+((sx(0)+sx(t))/2).toFixed(1)+'" y="'+(T+PH+52)+'" text-anchor="middle" font-size="12"','dno: '+n1(t)+' min','#F3FAFF');
     // zaustavljanja
     var x=t+(r.stops.length?(d-r.stops[0][0])/VA:0);
     r.stops.forEach(function(st,i){var z0=st[0],mins=st[1];
       s+='<line x1="'+sx(x).toFixed(1)+'" x2="'+sx(x+mins).toFixed(1)+'" y1="'+sy(z0)+'" y2="'+sy(z0)+'" stroke="#FFCB29" stroke-width="6"/>';
-      s+=TX('x="'+(sx(x+mins)+8).toFixed(1)+'" y="'+(sy(z0)+4)+'" font-size="13" font-weight="700"',z0+' m · '+mins+' min','#FFCB29');
+      var ex=sx(x+mins),lab=z0+' m · '+mins+' min';
+      s+=ex+120>W-R?TX('x="'+(ex-4).toFixed(1)+'" y="'+(sy(z0)-10)+'" text-anchor="end" font-size="13" font-weight="700"',lab,'#FFCB29'):TX('x="'+(ex+8).toFixed(1)+'" y="'+(sy(z0)+4)+'" font-size="13" font-weight="700"',lab,'#FFCB29');
       x+=mins+3/VA;});
     return s+'</svg>';
   }
@@ -3656,13 +3685,17 @@ function mk(id,opts){var h=d.getElementById(id);if(!h)return null;var done=false
     out.textContent=(r.stops.length?'Dekompresijski zaron: '+r.stops.length+' zaustavljanja, ukupno '+n1(r.tts)+' min uspona. Prvo zaustavljanje na '+r.first+' m.':'Bez dekompresijskih zaustavljanja prema modelu (GF '+gl+'/'+gh+'). NDL po modelu: '+r.ndl+' min.')+' Cijeli zaron: '+n1(r.run)+' min.';
     wr.textContent=(r.stops.length?'Dekompresijski zaron planira se samo uz obuku, plan gasa i rezervu. ':'')+(d>30?'Iznad 30 m: narkoza i gust gas (zrak na '+n1(d)+' m pri 5 °C: '+n1(rho5)+' g/L; granica 6,2 g/L). ':'')+(r.stops.length?'':'Model ne dodaje sigurnosno zaustavljanje: priručnik traži najmanje 3 min na 5 m. ');
     ch.innerHTML=svg(d,t,r);
+    var snap=[];model(d,t,gl,gh,snap);
+    var keep=snap.filter(function(x){return x.lab!=="first"||r.stops.length;});
+    document.getElementById("dk-tis").innerHTML='<h3 style="margin:18px 0 6px">Tkiva: koliko je koje opterećeno</h3>'+tisSvg(keep,gl,gh,r.first)+'<p class="lg">Opterećenje je dio puta od atmosferskog pritiska do M-vrijednosti na površini: 0 % je tkivo u ravnoteži s ambijentalnim pritiskom, 100 % je M-vrijednost (granica Bühlmannovog modela). Prvi panel pokazuje šta bi bilo da izroniš odmah, drugi poredi tkivo s pritiskom na dubini prvog zaustavljanja (granica je GF low), a treći s površinom (granica je GF high). Šrafirano žuto je iznad granice tog panela, šrafirano crveno iznad M-vrijednosti. Brza tkiva (gore) se pune i prazne brzo, spora (dolje) su važna za duge i duboke zarone. Debeli rub označava najopterećenije tkivo. Napon tkiva i M-vrijednosti računa isti FZ model kao kalkulator dekompresije.</p>';
     var tb='<table><tr><th>Dubina</th><th>Vrijeme</th></tr>'+(r.stops.length?r.stops.map(function(s){return '<tr><td>'+s[0]+' m</td><td>'+s[1]+' min</td></tr>';}).join(''):'<tr><td colspan="2">nema zaustavljanja</td></tr>')+'</table>';
     document.getElementById("dk-tab").innerHTML=tb;
   }
   var sl=function(id,lab,min,max,step,val,sp){return '<label>'+lab+': <b id="'+sp+'"></b><input id="'+id+'" type="range" min="'+min+'" max="'+max+'" step="'+step+'" value="'+val+'" style="width:100%"></label>';};
-  el.innerHTML='<h3 style="margin:18px 0 6px">Profil uspona sa zaustavljanjima</h3><div class="fld" style="display:grid;gap:10px;max-width:640px">'+sl("dk-d","Dubina",9,60,1,30,"dk-vd")+sl("dk-t","Vrijeme na dnu (s spuštanjem)",3,90,1,25,"dk-vt")+sl("dk-gl","GF low",20,100,5,30,"dk-vl")+sl("dk-gh","GF high",30,100,5,70,"dk-vh")+'</div><p id="dk-out" role="status" aria-live="polite" style="font-weight:700;margin:12px 0 4px"></p><p id="dk-warn" style="color:#FFCB29;margin:0 0 8px"></p><div id="dk-chart"></div><div id="dk-tab"></div><p class="lg">Zrak, morska voda, spuštanje 18 m/min, uspon 9 m/min, zaustavljanja u koracima po 3 m. Model je ZH-L16C s gradijent faktorima, isti kao kalkulator dekompresije; to nije SSI tablica i ne zamjenjuje računar ni plan zarona. SSI tablica je strožija od modela na 18 m, ali blaža na 30 m.</p>';
+  el.innerHTML='<h3 style="margin:18px 0 6px">Profil uspona sa zaustavljanjima</h3><div class="fld" style="display:grid;gap:10px;max-width:640px">'+sl("dk-d","Dubina",9,60,1,30,"dk-vd")+sl("dk-t","Vrijeme na dnu (s spuštanjem)",3,90,1,25,"dk-vt")+sl("dk-gl","GF low",20,100,5,30,"dk-vl")+sl("dk-gh","GF high",30,100,5,70,"dk-vh")+'</div><p id="dk-out" role="status" aria-live="polite" style="font-weight:700;margin:12px 0 4px"></p><p id="dk-warn" style="color:#FFCB29;margin:0 0 8px"></p><div id="dk-chart"></div><div id="dk-tab"></div><div id="dk-tis"></div><p class="lg">Zrak, morska voda, spuštanje 18 m/min, uspon 9 m/min, zaustavljanja u koracima po 3 m. Model je ZH-L16C s gradijent faktorima, isti kao kalkulator dekompresije; to nije SSI tablica i ne zamjenjuje računar ni plan zarona. SSI tablica je strožija od modela na 18 m, ali blaža na 30 m.</p>';
   ["dk-d","dk-t","dk-gl","dk-gh"].forEach(function(i){document.getElementById(i).addEventListener("input",draw);});
   draw();
+  window.__tisTest=function(d,t,gl,gh){var sn=[],r=model(d,t,gl,gh,sn);return {r:r,snaps:sn.map(function(x){return {lab:x.lab,z:x.z,gf:tisGF(x)};})};};
   window.__dkTest=function(d,t,gl,gh){var r=model(d,t,gl,gh),p=points(d,t,r);return {r:r,end:p[p.length-1][0]};};
 })();
 </script>
