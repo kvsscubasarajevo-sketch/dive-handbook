@@ -471,7 +471,18 @@ section.s canvas,.card canvas,.sim canvas{border-radius:18px;box-shadow:0 20px 4
 table{border-collapse:separate;border-spacing:0;border-radius:14px;overflow:hidden}
 ::selection{background:var(--club);color:#fff}
 @media (prefers-reduced-motion:reduce){.scene *{animation:none!important}.scene .ly{transition:none}.card,.card:hover{transform:none}}
-.scene .fg{opacity:.85;animation:swim 110s linear infinite}.scene .fg.b{animation-duration:150s;animation-delay:-70s}/* FIX: legibility */select{background-color:#0B263A;color:#F3FAFF}select option,select optgroup{background:#0B263A;color:#F3FAFF}.gauge .ms,.gauge .lb,.gauge .mk small{background:none!important;border:0!important;padding:0!important;box-shadow:none!important;text-shadow:0 0 6px #03101B,0 0 12px #03101B,0 0 2px #03101B}.gauge .ms{width:100px!important}@media(min-width:1100px){:root{--pad:max(clamp(16px,4.2vw,88px),136px)}}/* FIX: contrast of light-cyan badges and cards (WCAG AA) */.gx,.bn b,.mi b{color:#03101B}.rk-em{color:#03101B!important;background-image:radial-gradient(circle at 34% 28%,#B9F3FF,#4ED0F5 70%,#1FA5D6)!important;text-shadow:none}.vd.no{color:#03101B}.viz span[style*="1f8a70" i],.viz span[style*="31, 138, 112"]{background:#167560!important}.ex{background-image:linear-gradient(160deg,#0B6F96,#0A4562)!important}.face.bk{background-image:linear-gradient(160deg,#0B6F96,#0A4562)!important}.refsrc b,.ex h4{color:#C6F5FF}@media(min-width:1100px){.cilj{margin-left:var(--pad);margin-right:var(--pad)}}@media (max-width:700px){.scene{opacity:.4}}@media print{.scene{display:none!important}}
+.scene .fg{opacity:.85;animation:swim 110s linear infinite}.scene .fg.b{animation-duration:150s;animation-delay:-70s}/* FIX: legibility */select{background-color:#0B263A;color:#F3FAFF}select option,select optgroup{background:#0B263A;color:#F3FAFF}.gauge .ms,.gauge .lb,.gauge .mk small{background:none!important;border:0!important;padding:0!important;box-shadow:none!important;text-shadow:0 0 6px #03101B,0 0 12px #03101B,0 0 2px #03101B}.gauge .ms{width:100px!important}@media(min-width:1100px){:root{--pad:max(clamp(16px,4.2vw,88px),136px)}}/* FIX: contrast of light-cyan badges and cards (WCAG AA) */.gx,.bn b,.mi b{color:#03101B}.rk-em{color:#03101B!important;background-image:radial-gradient(circle at 34% 28%,#B9F3FF,#4ED0F5 70%,#1FA5D6)!important;text-shadow:none}.vd.no{color:#03101B}.viz span[style*="1f8a70" i],.viz span[style*="31, 138, 112"]{background:#167560!important}.ex{background-image:linear-gradient(160deg,#0B6F96,#0A4562)!important}.face.bk{background-image:linear-gradient(160deg,#0B6F96,#0A4562)!important}.refsrc b,.ex h4{color:#C6F5FF}@media(min-width:1100px){.cilj{margin-left:var(--pad);margin-right:var(--pad)}}/* FIX: badge width follows its label */.st{grid-template-columns:minmax(3.2rem,max-content) 1fr!important}.gx{width:auto!important;min-width:3.2rem;padding:0 .55em;white-space:nowrap}.simc label{min-width:0;overflow-wrap:anywhere}.simc{min-width:0}.simc label{max-width:100%;box-sizing:border-box}.simc input,.simc select{max-width:100%;min-width:0;box-sizing:border-box}@media (max-width:700px){.scene{opacity:.4}}@media print{.scene{display:none!important}}
+</style>
+<style id="cinematic-extras">.xw{margin:22px 0;padding:18px;border-radius:22px;background:linear-gradient(160deg,rgba(30,92,132,.35),rgba(9,34,54,.6));border:1px solid rgba(160,230,255,.2);box-shadow:0 22px 44px -16px rgba(0,8,16,.75),inset 0 1px 0 rgba(255,255,255,.14)}
+.xw .xh{font-size:1.35rem;margin:0 0 6px}.xw>.lg{margin:0 0 12px}
+.xw canvas{display:block;width:100%;border-radius:18px;box-shadow:0 18px 36px -14px rgba(0,8,16,.85),0 0 0 1px rgba(160,230,255,.22)}
+.xt{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}.xt .xb[aria-pressed=true],.xc .xb[aria-pressed=true]{background:linear-gradient(180deg,#9AF2FF,#3BCBF3 55%,#1FA5D6);color:#02131f}
+.xc{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px 18px;align-items:end;margin:14px 0 6px}
+.xs{display:grid;grid-template-columns:1fr auto;gap:4px 10px;font-size:.92rem}.xs span{color:#cfefff;font-weight:700}.xs b{color:#ffcb29;text-align:right;min-width:4.6em}.xs input,.xs select{grid-column:1/3;width:100%;accent-color:#35d8ff}
+.xs select{background:#0B263A;color:#F3FAFF;border:1px solid rgba(160,230,255,.35);border-radius:10px;padding:8px}
+.xb{font:inherit;cursor:pointer;padding:10px 16px}.xo{margin-top:12px;padding:12px 14px;border-radius:14px;background:rgba(2,20,32,.55);border-left:5px solid #35d8ff;line-height:1.5;font-size:.95rem}
+.xn{margin:10px 0 0;font-size:.85rem;color:#9fc3d4}
+@media print{.xw canvas{box-shadow:none}.xc{display:none}}
 </style>
 </head>
 <body>
@@ -4473,12 +4484,12 @@ function mk(id,opts){var h=d.getElementById(id);if(!h)return null;var done=false
   for(var i=0;i<14;i++)R.pts.push(2+Math.sin(i*1.3+t)*.2,(-2+((t*.6+i*.4)%5)),Math.cos(i)*.2,.8);
   R.label(-3.4,.3+r0+.4,0,"površina: 1,00 L","#BFF4FF",true);R.label(1.2,.3+r+.4,0,f(Z,0)+" m: "+f(V,2)+" L","#65E5FF",true);R.label(-.6,-1.8,0,"P = "+f(P,3)+" bar · V = 1,01325 / "+f(P,3),"#FFCB29",true);}});})();
 /* ---------- 3. UZGON ---------- */
-(function(){var h=d.getElementById("viz-uz");if(!h)return;var m=$(".vz-m",h),v=$(".vz-v",h),b=$(".vz-b",h),w=$(".vz-w",h),yo=0;
+(function(){var h=d.getElementById("viz-uz");if(!h)return;var m=$(".vz-m",h),v=$(".vz-v",h),b=$(".vz-b",h),w=$(".vz-w",h),yo=0,vy=0;
  mk("viz-uz",{h:420,dist:5.8,pitch:.1,yaw:1.4,label:"3D ronilac s vektorima uzgona i težine i prslukom koji se puni",inputs:[m,v,b,w],
  scene:function(R,t){var mm=+m.value,VV=+v.value,bb=+b.value,rho=+w.value;if(!(mm>0&&VV>0))return;var up=rho*(VV+bb)/1000,net=up-mm;R.env.surf=8;R.env.fog=[.03,.27,.41];
-  yo+=Math.max(-.012,Math.min(.012,net*.004));if(Math.abs(yo)>1.1)yo=0;yo*=.995;R.cam.tgt=[0,yo,0];R.env.sh1=[0,0,1.5,.42];floor(R,-3);rays(R,t,14,1);
+  vy+=Math.max(-3,Math.min(3,net))*.0012-vy*.06;if(Math.abs(net)<.05)vy+=Math.sin(t*1.3)*.0004;yo+=vy;if(yo>1.9){yo=1.9;vy=0}if(yo<-1.4){yo=-1.4;vy=0}R.cam.tgt=[0,0,0];R.env.sh1=[0,0,1.5,.42];floor(R,-3);rays(R,t,14,1);
   diver(R,M(T(0,yo,0),RY(Math.PI)),t,0,{bcd:1+bb/5,bcdGlow:bb/30});
-  var s=.02;R.arrow([-.25,yo+.6,0],[0,up*s,0],.07,C.cy,{emis:.5});R.arrow([.25,yo-.3,0],[0,-mm*s,0],.07,C.warn,{emis:.5});
+  var s=.05;R.arrow([-.25,yo+.6,0],[0,up*s,0],.07,C.cy,{emis:.5});R.arrow([.25,yo-.3,0],[0,-mm*s,0],.07,C.warn,{emis:.5});
   particles(R,t,yo,90);
   R.label(-.2,yo+.8+up*s,0,"uzgon "+f(up,1)+" kg","#65E5FF",true);R.label(.3,yo-.6-mm*s,0,"težina "+f(mm,1)+" kg","#FFCB29",true);
   R.label(-2.6,yo+2.2,0,net>.05?"pozitivna plovnost: +"+f(net,2)+" kg ↑":net<-.05?"negativna plovnost: "+f(net,2)+" kg ↓":"neutralna plovnost ≈ 0","#F3FAFF",true);}});})();
@@ -4763,6 +4774,220 @@ if(matchMedia('(hover:hover) and (pointer:fine)').matches&&!matchMedia('(prefers
 document.addEventListener('pointermove',function(e){var c=e.target.closest&&e.target.closest('.card');if(!c)return;var r=c.getBoundingClientRect();c.style.setProperty('--tx',(((e.clientX-r.left)/r.width-.5)*5).toFixed(2)+'deg');c.style.setProperty('--ty',(((e.clientY-r.top)/r.height-.5)*-5).toFixed(2)+'deg')},{passive:true});
 document.addEventListener('pointerout',function(e){var c=e.target.closest&&e.target.closest('.card');if(c){c.style.removeProperty('--tx');c.style.removeProperty('--ty')}},{passive:true});}
 }catch(e){}})();
+</script>
+<script id="cinematic-extras-js">(function(){'use strict';
+var TAU=Math.PI*2,RM=matchMedia('(prefers-reduced-motion:reduce)').matches,Ws=[],X=window.__X={};
+function el(t,c,h){var e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e}
+function cl(v,a,b){return Math.max(a,Math.min(b,v))}
+function lp(a,b,t){return a+(b-a)*t}
+function f(v,d){return (+v).toFixed(d||0).replace('.',',')}
+function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+function ball(c,x,y,r,col,a){var g=c.createRadialGradient(x-r*.35,y-r*.4,r*.1,x,y,r);g.addColorStop(0,'rgba(255,255,255,'+(a||.9)+')');g.addColorStop(.35,col);g.addColorStop(1,'rgba(0,0,0,.35)');c.fillStyle=g;c.beginPath();c.arc(x,y,r,0,TAU);c.fill()}
+function bub(c,x,y,r){c.strokeStyle='rgba(200,245,255,.8)';c.fillStyle='rgba(160,230,255,.15)';c.lineWidth=1.2;c.beginPath();c.arc(x,y,r,0,TAU);c.fill();c.stroke();c.fillStyle='rgba(255,255,255,.7)';c.beginPath();c.arc(x-r*.35,y-r*.35,r*.22,0,TAU);c.fill()}
+function water(c,w,h,t,top){var g=c.createLinearGradient(0,0,0,h);g.addColorStop(0,top||'#2a97bd');g.addColorStop(.45,'#0b4766');g.addColorStop(1,'#04202f');c.fillStyle=g;c.fillRect(0,0,w,h);c.save();c.globalCompositeOperation='lighter';for(var i=0;i<5;i++){var x=w*(.1+.2*i)+Math.sin(t*.3+i*2)*26,gr=c.createLinearGradient(x,0,x,h*.8);gr.addColorStop(0,'rgba(140,235,255,.15)');gr.addColorStop(1,'rgba(140,235,255,0)');c.fillStyle=gr;c.beginPath();c.moveTo(x-16,0);c.lineTo(x+16,0);c.lineTo(x+80,h*.8);c.lineTo(x-50,h*.8);c.fill()}c.restore();c.strokeStyle='rgba(200,245,255,.35)';c.lineWidth=1;for(i=0;i<12;i++){var bx=(i*131.7)%w,by=h-((t*(14+i%5*8)+i*77)%(h+20)),r=1.5+i%3;c.beginPath();c.arc(bx+Math.sin(t+i)*5,by,r,0,TAU);c.stroke()}}
+function sand(c,w,h,y){var g=c.createLinearGradient(0,y,0,h);g.addColorStop(0,'#c9b98a');g.addColorStop(1,'#6e5f45');c.fillStyle=g;c.beginPath();c.moveTo(0,y+6);for(var x=0;x<=w;x+=20)c.lineTo(x,y+Math.sin(x*.03)*5);c.lineTo(w,h);c.lineTo(0,h);c.fill()}
+function limb(c,a,b,x,y,wd,col){c.lineCap='round';c.strokeStyle=col;c.lineWidth=wd;c.beginPath();c.moveTo(a,b);c.lineTo(x,y);c.stroke()}
+/* stylised diver, facing right. o:{trim,knee,head} */
+function diver(c,x,y,s,o){o=o||{};var tr=o.trim||0,k=o.knee==null?.35:o.knee,hd=o.head||0;c.save();c.translate(x,y);c.scale(s,s);c.rotate(tr);
+var ta=Math.PI+(k<0?k*.5:0),sa=Math.PI+k*1.5,kx=44*Math.cos(ta),ky=44*Math.sin(ta),fx=kx+46*Math.cos(sa),fy=ky+46*Math.sin(sa);
+limb(c,52,2,100,10,11,'#0d2a44');
+limb(c,0,0,kx,ky,17,'#12324f');limb(c,kx,ky,fx,fy,14,'#12324f');limb(c,0,-4,kx,ky-4,5,'rgba(120,190,240,.35)');
+c.save();c.translate(fx,fy);c.rotate(sa);c.fillStyle='#ffcb29';c.beginPath();c.moveTo(0,-6);c.quadraticCurveTo(30,-18,46,-12);c.lineTo(46,12);c.quadraticCurveTo(30,18,0,6);c.closePath();c.fill();c.strokeStyle='rgba(0,0,0,.25)';c.stroke();c.restore();
+limb(c,0,0,60,0,27,'#12324f');limb(c,4,-8,56,-8,6,'rgba(120,190,240,.4)');
+rr(c,16,-20,36,24,9);c.fillStyle='#D6232A';c.fill();rr(c,20,-17,28,6,3);c.fillStyle='rgba(255,255,255,.35)';c.fill();
+rr(c,-4,5,22,9,3);c.fillStyle='#222c36';c.fill();
+rr(c,8,-36,48,16,8);var g=c.createLinearGradient(0,-36,0,-20);g.addColorStop(0,'#eef4f8');g.addColorStop(1,'#8fa3b3');c.fillStyle=g;c.fill();c.fillStyle='#b8c4cf';c.fillRect(56,-31,6,6);
+limb(c,52,-2,104,6,12,'#12324f');
+var hx=70+18*Math.cos(hd*1.2),hy=-3+18*Math.sin(hd*1.2);ball(c,hx,hy,15,'#ffd2a8',.7);c.fillStyle='#0d2a44';c.beginPath();c.arc(hx-3,hy-5,15,Math.PI*1.05,Math.PI*1.95);c.fill();
+rr(c,hx+2,hy-7,16,13,5);c.fillStyle='#0b1b2a';c.fill();rr(c,hx+5,hy-5,10,8,3);c.fillStyle='#7fdcff';c.fill();
+c.restore()}
+X.diver=diver;
+/* widget factory */
+function widget(host,o){if(!host)return null;var box=el('div','xw');box.id=o.id;box.appendChild(el('h3','hd xh',o.title));box.appendChild(el('p','lg',o.lead));
+var tabs=el('div','xt');box.appendChild(tabs);var cv=el('canvas');cv.setAttribute('role','img');cv.setAttribute('aria-label',o.alt||o.title);box.appendChild(cv);
+var ctl=el('div','xc'),out=el('div','xo');box.appendChild(ctl);box.appendChild(out);if(o.note)box.appendChild(el('p','xn',o.note));
+var anchor=host.querySelector('.vzh')||host.lastElementChild;anchor.parentNode.insertBefore(box,anchor.nextSibling);
+var w={cv:cv,c:cv.getContext('2d'),S:{},t:0,vis:true,cw:0,o:o,out:out,box:box};
+w.tab=function(list,key,cb){list.forEach(function(n,i){var b=el('button','btn xb',n);b.type='button';b.onclick=function(){w.S[key]=i;[].forEach.call(tabs.children,function(x,j){x.setAttribute('aria-pressed',j==i)});cb&&cb(i)};tabs.appendChild(b)});w.S[key]=0;tabs.firstChild.setAttribute('aria-pressed','true')};
+w.sl=function(label,mn,mx,st,v,key,fm,cb){var id=o.id+'-'+key,r=el('label','xs'),s=el('input');s.type='range';s.min=mn;s.max=mx;s.step=st;s.value=v;s.id=id;var val=el('b');function up(){w.S[key]=+s.value;val.textContent=fm?fm(+s.value):s.value}s.oninput=function(){up();cb&&cb()};up();r.appendChild(el('span','',label));r.appendChild(s);r.appendChild(val);ctl.appendChild(r);w.S[key]=+v;w.set=w.set||{};w.set[key]=function(x){s.value=x;up()}};
+w.sel=function(label,opts,key,cb){var r=el('label','xs'),s=el('select');opts.forEach(function(p){var op=el('option','',p[0]);op.value=p[1];s.appendChild(op)});s.onchange=function(){w.S[key]=+s.value;cb&&cb()};w.S[key]=+opts[0][1];r.appendChild(el('span','',label));r.appendChild(s);ctl.appendChild(r)};
+w.btn=function(label,fn){var b=el('button','btn xb',label);b.type='button';b.onclick=fn;ctl.appendChild(b);return b};
+w.text=function(h){out.innerHTML=h};
+if('IntersectionObserver' in window)new IntersectionObserver(function(e){w.vis=e[0].isIntersecting},{rootMargin:'120px'}).observe(cv);
+Ws.push(w);return w}
+X.widget=widget;
+var last=0;function loop(ts){requestAnimationFrame(loop);var dt=Math.min(.05,(ts-last)/1000||.016);last=ts;
+Ws.forEach(function(w){if(!w.vis)return;var cw=w.cv.clientWidth;if(!cw)return;var dp=Math.min(devicePixelRatio||1,2),H=Math.round(cw*(cw<620?w.o.rn:w.o.r));if(w.cw!==cw||w.H!==H){w.cw=cw;w.H=H;w.cv.width=cw*dp;w.cv.height=H*dp;w.cv.style.height=H+'px';w.c.setTransform(dp,0,0,dp,0,0)}
+if(!RM)w.t+=dt;w.o.step&&w.o.step(w,dt);w.c.save();w.o.draw(w.c,cw,H,w.t,w);w.c.restore();w.o.out&&w.o.out(w)})}
+X.start=function(){requestAnimationFrame(loop)};
+function sec(sel,txt){var a=document.querySelectorAll(sel);for(var i=0;i<a.length;i++)if(!txt||a[i].textContent.indexOf(txt)>-1)return a[i];return null}
+X.sec=sec;X.u={el:el,cl:cl,lp:lp,f:f,rr:rr,ball:ball,bub:bub,water:water,sand:sand,limb:limb,TAU:TAU,RM:RM};
+
+/* ================= MEDICINA RONJENJA ================= */
+(function(){var w=widget(sec('#md-viz'),{id:'x-med',r:.62,rn:.95,title:'Animacija: šta se događa u tijelu pri brzom izronu',alt:'Animacija dekompresijske bolesti, pneumotoraksa, emfizema, plinske embolije i prve pomoći kiseonikom',
+lead:'Odaberi stanje, podesi parametre i pokreni izron. Ilustracija je pojednostavljena i služi razumijevanju mehanizma; ne zamjenjuje obuku ni medicinsku procjenu.',
+note:'Prvi korak kod sumnje na bilo koje od ovih stanja je poziv hitne službe (112) i 100% kiseonik. Zaustavi zaron i ne vraćaj ronioca pod vodu.',
+step:function(w,dt){var S=w.S;if(S.play){var sp=S.mode==0?S.v:6;S.prog=Math.min(1,S.prog+dt*sp/(3*S.D));if(S.prog>=1)S.play=false}
+var dd=S.D*(1-S.prog),ratio=(1+S.D/10)/(1+dd/10);S.ratio=ratio;if(S.mode>=1&&S.mode<=3&&S.prog>0&&!S.rupt&&ratio>=1.25)S.rupt=true;if(S.rupt)S.leak=Math.min(1,S.leak+dt*.35);
+if(S.mode==4){S.bub=cl(S.bub+dt*(S.o2?-3.2:.4),0,18)}},
+draw:function(c,W,H,t,w){var S=w.S,m=S.mode,D=S.D;water(c,W,H,t);var u=H/300,ex=W*.3;
+/* depth column */
+c.fillStyle='rgba(2,20,32,.55)';rr(c,10,10,ex-10,H-20,14);c.fill();var gx=ex*.62,y0=40,y1=H-30,dd=(m==4?0:D*(1-S.prog)),dy=y0+(1-(m==4?1:(1-S.prog)))*0;
+c.strokeStyle='rgba(160,230,255,.5)';c.lineWidth=2;c.beginPath();c.moveTo(gx,y0);c.lineTo(gx,y1);c.stroke();c.fillStyle='#cfefff';c.font='600 '+Math.max(11,u*11)+'px Nunito,sans-serif';c.textAlign='left';c.fillText('0 m',gx+10,y0+4);c.fillText(D+' m',gx+10,y1+4);
+var py=m==4?y0+8:y0+(dd/D)*(y1-y0);diver(c,gx-6,py,.34*u*1.2,{trim:-Math.PI/2+.1,knee:.5});
+if(S.play||S.prog>0){c.fillStyle='#ffcb29';c.fillText(f(dd,1)+' m',gx+10,py+4)}
+/* organ panel */
+var cx=ex+(W-ex)/2,cy=H*.52,R=Math.min(W-ex,H)*.46,Rl=Math.min((W-ex)*.45,H*.33),cyl=H*.6;
+if(m==0)dcs(c,cx,cy,R,t,S,u);else if(m==4)aid(c,cx,cy,R,t,S,u);else lungs(c,cx,cyl,Rl,t,S,m,u)}});
+if(!w)return;var S=w.S;S.prog=0;S.D=30;S.leak=0;S.bub=15;
+function rs(){S.prog=0;S.play=false;S.rupt=false;S.leak=0;S.bub=15;S.o2=false}
+function modeUI(){[].forEach.call(w.box.querySelectorAll('.xs,.xb:not(.xt .xb)'),function(e){e.style.display='none'});var m=S.mode;function show(a){a.forEach(function(k){var e=w.box.querySelector('[data-k="'+k+'"]');e&&(e.style.display='')})}show(m==0?['D','L','v','go','rs']:m==4?['o2','rs']:['D','go','rs']);rs()}
+w.tab(['Dekompresijska bolest','Pneumotoraks','Emfizem','Plinska embolija','Prva pomoć: kiseonik'],'mode',modeUI);
+w.sl('Dubina zarona',3,40,1,30,'D',function(v){return v+' m'},rs);w.sl('Zasićenje tkiva azotom',20,100,5,80,'L',function(v){return v+'%'},rs);w.sl('Brzina uspona',3,30,1,20,'v',function(v){return v+' m/min'},rs);
+w.btn('▶ Izroni',function(){rs();S.play=true});w.btn('↺ Ponovi',rs);w.btn('100% O₂: isključen',function(){S.o2=!S.o2;this.textContent='100% O₂: '+(S.o2?'UKLJUČEN':'isključen');this.setAttribute('aria-pressed',S.o2)});
+var cs=w.box.querySelectorAll('.xs'),bs=w.box.querySelectorAll('.xc .xb');['D','L','v'].forEach(function(k,i){cs[i].dataset.k=k});['go','rs','o2'].forEach(function(k,i){bs[i].dataset.k=k});modeUI();
+w.o.out=function(w){var m=S.mode,h='';if(m==0){var sev=cl(S.L/100*(S.v-8)/22,0,1)*(S.prog>=1?1:S.prog),n=sev<.12?'Rizik nizak: tihi mikromjehurići mogući, simptoma obično nema.':sev<.4?'Blagi simptomi mogući: umor, svrbež kože, bol u zglobovima.':sev<.7?'Umjereni simptomi: jaka bol u zglobu, trnci, vrtoglavica, mučnina.':'Teški simptomi: slabost ili paraliza, poremećaj disanja, gubitak svijesti. Životna opasnost.';h='<b>Mehanizam:</b> pod pritiskom se azot rastvara u tkivima. Pri presporom izlasku višak azota ne stigne izaći kroz pluća i stvara mjehuriće u tkivima i krvi. Što je brži izron i veće zasićenje, mjehurića je više.<br><b>Stanje:</b> '+n+' Siguran izron je do 9–10 m/min uz sigurnosno zaustavljanje.'}
+else if(m==1)h='<b>Mehanizam:</b> pri izronu sa zadržanim dahom zrak u plućima se širi (Boyleov zakon, pri izronu s 10 m zapremina se udvostruči). Alveole puknu, zrak ulazi u pleuralni prostor i pluće se steže.<br><b>Znaci:</b> oštar bol u prsima, kratak dah, ubrzan puls. <b>Hitno:</b> 112, 100% kiseonik, polusjedeći položaj. Opasno je i s 1–2 m dubine.';
+else if(m==2)h='<b>Mehanizam:</b> zrak iz pukle alveole prodire u srednji prsni prostor (medijastinum) uz srce i traheju, pa pod kožu vrata.<br><b>Znaci:</b> bol iza grudne kosti, promuklost, otežano gutanje, krckanje pod kožom vrata. <b>Hitno:</b> 112, 100% kiseonik, mirovanje.';
+else if(m==3)h='<b>Mehanizam:</b> mjehurići zraka iz oštećenih pluća ulaze u plućne vene, srce ih šalje u arterije i mozak i začepe sitne krvne sudove.<br><b>Znaci:</b> nastaju u prvim minutama nakon izrona: gubitak svijesti, slabost jedne strane, poremećaj govora i vida. <b>Hitno:</b> 112, 100% kiseonik, ležeći položaj, transport u hiperbaričnu komoru.';
+else h='<b>Prva pomoć:</b> 1) izvuci ronioca i osiguraj disanje, 2) pozovi hitnu (112), 3) što prije daj 100% kiseonik pomoću maske bez prekida, 4) prati svijest i disanje, po potrebi oživljavanje, 5) transport u medicinsku ustanovu s hiperbaričnom komorom. Ne vraćaj ronioca pod vodu.<br><b>Kada je kiseonik indiciran:</b> sumnja na dekompresijsku bolest ili plinsku emboliju, povreda pluća (pneumotoraks, emfizem), utapanje i svaka tegoba s disanjem poslije zarona. Kiseonik ispire azot i smanjuje mjehuriće.';
+if(w.hh!==h){w.hh=h;w.text(h)}}})();
+function dcs(c,cx,cy,R,t,S,u){c.save();c.beginPath();c.arc(cx,cy,R,0,TAU);c.clip();var g=c.createRadialGradient(cx,cy-R*.3,R*.1,cx,cy,R);g.addColorStop(0,'#ffb0a0');g.addColorStop(1,'#b94a5e');c.fillStyle=g;c.fillRect(cx-R,cy-R,2*R,2*R);
+var vy=cy,vh=R*.34;c.fillStyle='#7d1f35';c.fillRect(cx-R,vy-vh/2,2*R,vh);c.fillStyle='#a32a47';c.fillRect(cx-R,vy-vh/2+3,2*R,vh-6);
+var n=Math.round(S.L/100*46),sev=cl(S.L/100*(S.v-8)/22,0,1),pr=S.prog;
+for(var i=0;i<n;i++){var a=i*2.399,rr_=R*.95*Math.sqrt((i+.5)/n),x=cx+Math.cos(a)*rr_,y=cy+Math.sin(a)*rr_;if(Math.abs(y-vy)<vh/2)continue;c.fillStyle='rgba(255,255,255,'+(pr>.2?.25:.6)+')';c.beginPath();c.arc(x,y,2.2*u,0,TAU);c.fill()}
+var nb=Math.round(sev*12*cl(pr*1.4,0,1));for(i=0;i<nb;i++){var a2=i*2.1+1,r2=R*.8*Math.sqrt((i+.7)/12),bx=cx+Math.cos(a2)*r2,by=cy+Math.sin(a2)*r2,rad=(3+sev*7)*u*cl(pr*1.5,0,1);if(Math.abs(by-vy)<vh/2){by=vy+Math.sin(i)*vh*.2}bub(c,bx,by,rad)}
+var spd=(1-sev*cl(pr*1.5,0,1))*40,off=(t*spd)%60;for(i=-1;i<R*2/40+1;i++){var rx=cx-R+((i*40+off)%(R*2+40)),block=sev>.5&&pr>.8?cx-R*.1:null;if(block&&rx>block)rx=block-((rx-block)%50);c.fillStyle='#e23a3a';c.beginPath();c.ellipse(rx,vy+Math.sin(i*3)*vh*.15,6*u,3.5*u,0,0,TAU);c.fill()}
+if(sev>.5&&pr>.9){c.fillStyle='rgba(255,40,40,'+(.18+.1*Math.sin(t*5))+')';c.fillRect(cx-R,cy-R,2*R,2*R)}
+c.restore();c.strokeStyle='rgba(255,255,255,.5)';c.lineWidth=3;c.beginPath();c.arc(cx,cy,R,0,TAU);c.stroke();c.fillStyle='#fff';c.font='700 '+Math.max(11,u*11)+'px Nunito,sans-serif';c.textAlign='center';c.fillText('Krvni sud i tkivo (uvećano)',cx,cy+R+u*14)}
+function lungs(c,cx,cy,R,t,S,m,u){var pr=S.prog,ra=S.ratio||1,lk=S.rupt?S.leak:0,sc=Math.min(1.28,1+(ra-1)*.3);c.save();c.translate(cx,cy);
+c.strokeStyle='rgba(255,255,255,.45)';c.lineWidth=2;rr(c,-R*.9,-R*.92,R*1.8,R*1.7,R*.4);c.stroke();for(var i=0;i<4;i++){c.beginPath();c.ellipse(0,-R*.5+i*R*.3,R*.85,R*.18,0,0,TAU);c.strokeStyle='rgba(255,255,255,.12)';c.stroke()}
+c.fillStyle='#e9c3b0';rr(c,-R*.07,-R*1.15,R*.14,R*.7,R*.05);c.fill();
+var lx=-R*.38,rx=R*.38,lw=R*.36*sc,lh=R*.6*sc;
+function lobe(x,k,col){var g=c.createRadialGradient(x-lw*.3,-lh*.3,5,x,0,lh);g.addColorStop(0,'#ffb3c2');g.addColorStop(1,col);c.fillStyle=g;c.beginPath();c.ellipse(x,R*.05,lw*k,lh*k,0,0,TAU);c.fill();c.strokeStyle='rgba(255,255,255,.35)';c.lineWidth=2;c.beginPath();c.moveTo(x*.2,-R*.45);c.lineTo(x,-R*.1);c.moveTo(x,-R*.1);c.lineTo(x+(x<0?-1:1)*lw*.3,R*.2);c.stroke()}
+var kR=m==1?1-lk*.6:1;
+lobe(lx,1,'#d4506c');if(m==1&&lk>0){c.fillStyle='rgba(10,20,30,.55)';c.beginPath();c.ellipse(rx+lw*.55,R*.05,lw*.25,lh*.95,0,0,TAU);c.fill();for(i=0;i<5;i++)bub(c,rx+lw*.55+Math.sin(t*2+i)*4,R*.3-((t*30+i*30)%R*.9),3*u)}lobe(rx,kR,'#d4506c');
+var hg=c.createRadialGradient(0,R*.15,3,0,R*.15,R*.2);hg.addColorStop(0,'#ff5a5a');hg.addColorStop(1,'#a01c2c');c.fillStyle=hg;c.beginPath();c.ellipse(-R*.03,R*.18,R*.15,R*.2,.3,0,TAU);c.fill();
+if(m==2&&lk>0){for(i=0;i<10;i++){var q=((t*40+i*40)%(R*1.1))/R,bx=Math.sin(i*2)*R*.12,by=R*.3-q*R*1.1;if(q<lk*1.2)bub(c,bx,by,3*u)}if(lk>.6){c.fillStyle='rgba(255,230,190,.5)';c.beginPath();c.ellipse(0,-R*.9,R*.28*lk,R*.12,0,0,TAU);c.fill();c.fillStyle='#fff';c.font='700 '+u*10+'px Nunito';c.textAlign='center';c.fillText('zrak pod kožom vrata',0,-R*1.1)}}
+if(m==3){var bw=cl(lk*1.6,0,1.6);if(lk>0){for(i=0;i<6;i++){var s=cl(bw-i*.15,0,1),px,py;if(s<=0)continue;if(s<.4){px=lp(rx,R*.08,s/.4);py=lp(R*.05,R*.15,s/.4)}else{var s2=(s-.4)/.6;px=lp(R*.08,R*.0,s2);py=lp(R*.15,-R*1.05,s2)}bub(c,px,py,3.2*u)}}
+var br=(bw>1.2);c.fillStyle=br?'rgba(255,60,60,'+(.5+.3*Math.sin(t*6))+')':'#f0a7c6';c.beginPath();c.ellipse(0,-R*1.18,R*.2,R*.13,0,0,TAU);c.fill();c.fillStyle='#fff';c.font='700 '+u*10+'px Nunito';c.textAlign='center';c.fillText(br?'mozak: začepljene žile':'mozak',0,-R*1.38)}
+c.restore();c.fillStyle='#fff';c.font='700 '+Math.max(11,u*11)+'px Nunito,sans-serif';c.textAlign='center';c.fillText('Zapremina pluća: ×'+f(ra,2)+(S.rupt?'  PUKNUĆE ALVEOLA':''),cx,cy+R*1.05)}
+function aid(c,cx,cy,R,t,S,u){c.save();c.beginPath();c.arc(cx,cy,R,0,TAU);c.clip();c.fillStyle='#b94a5e';c.fillRect(cx-R,cy-R,2*R,2*R);var vh=R*.55;c.fillStyle='#7d1f35';c.fillRect(cx-R,cy-vh/2,2*R,vh);c.fillStyle='#a32a47';c.fillRect(cx-R,cy-vh/2+4,2*R,vh-8);
+var r=S.bub*u*.9,fl=1-cl(S.bub/18,0,1)*.9;for(var i=0;i<9;i++){var x=cx-R+((i*60+t*60*fl)%(2*R+60));var wall=x>cx-r*1.2&&x<cx+r*1.2;if(wall&&fl<.3)x=cx-r*1.2-((i*7)%30);c.fillStyle='#e23a3a';c.beginPath();c.ellipse(x,cy+Math.sin(i*5)*vh*.2,7*u,4*u,0,0,TAU);c.fill()}
+if(r>2)bub(c,cx,cy,r);if(S.o2){c.fillStyle='rgba(120,230,255,.9)';for(i=0;i<14;i++){c.beginPath();c.arc(cx-R+((i*53+t*50)%(2*R)),cy+Math.sin(i*4+t)*vh*.35,2*u,0,TAU);c.fill()}}
+c.restore();c.strokeStyle='rgba(255,255,255,.5)';c.lineWidth=3;c.beginPath();c.arc(cx,cy,R,0,TAU);c.stroke();c.fillStyle='#fff';c.font='700 '+Math.max(11,u*11)+'px Nunito,sans-serif';c.textAlign='center';c.fillText('Protok krvi: '+Math.round(fl*100)+'%'+(S.o2?'  | 100% O₂ ispire azot':'  | bez kiseonika mjehurić ostaje'),cx,cy+R+u*14)}
+
+/* ================= RONILAČKI RAČUNAR ================= */
+(function(){var HT=[5,8,12.5,18.5,27,38.3,54.3,77,109,146,187,239,305,390,498,635],A=[1.1696,1,.8618,.7562,.62,.5043,.441,.4,.375,.35,.3295,.3065,.2835,.261,.248,.2327],B=[.5578,.6514,.7222,.7825,.8126,.8434,.8693,.891,.9092,.9222,.9319,.9403,.9477,.9544,.9602,.9653],PS=1.013,PW=.0627;
+var w=widget(sec('#rr-viz'),{id:'x-rr',r:.5,rn:.9,title:'Simulacija: ronilački računar na zaronu',alt:'Ronilački računar koji prikazuje dubinu, NDL, brzinu uspona, sigurnosno zaustavljanje i pritisak u boci',
+lead:'Mijenjaj dubinu, brzinu promjene dubine, mješavinu i ubrzanje vremena. Računar odmah pokazuje NDL, brzinu uspona, PO₂, stop i stanje boce.',
+note:'Obrazovni model: Bühlmann ZH‑L16C bez dodatne konzervativnosti, potrošnja 20 L/min, boca 12 L. Računar na zaronu i tvoj plan su mjerodavni; vrijednosti NDL ovdje ne zamjenjuju tablice ni računar.',
+step:function(w,dt){var S=w.S;if(S.pause)return;var ds=dt*S.ts,ps=S.D,tg=S.tgt,r=S.rate/60;var mv=cl(tg-S.D,-r*ds,r*ds);S.D+=mv;S.vs=lp(S.vs,mv/ds*60,.1);if(Math.abs(S.D-tg)<1e-6)S.vs=lp(S.vs,0,.2);
+if(S.D<0)S.D=0;if(S.D>.5||S.dt>0)S.dt+=S.D>.3?ds:0;S.mx=Math.max(S.mx,S.D);var P=PS+.1005*S.D,Pi=(P-PW)*(1-S.fo),n=Math.max(1,Math.ceil(ds));var st=ds/n;for(var k=0;k<n;k++)for(var i=0;i<16;i++)S.T[i]+=(Pi-S.T[i])*(1-Math.pow(2,-st/60/HT[i]));
+S.bar=Math.max(0,S.bar-20/60*P/12*ds);if(S.D>12)S.stop=180;if(S.mx>=10&&S.D>=3&&S.D<=6.2&&S.stop>0)S.stop=Math.max(0,S.stop-ds);
+var ndl=999,ce=0;for(i=0;i<16;i++){var M0=PS/B[i]+A[i],Pa=B[i]*(S.T[i]-A[i]);ce=Math.max(ce,(Pa-PS)/.1005);if(Pi>M0&&S.T[i]<M0){var rt=(M0-Pi)/(S.T[i]-Pi);ndl=Math.min(ndl,-HT[i]*Math.log2(rt))}else if(S.T[i]>=M0)ndl=0}S.ndl=ndl;S.ce=ce},
+draw:function(c,W,H,t,w){var S=w.S;water(c,W,H,t);var dw=Math.min(W*.92,H*1.62),dh=dw/1.5,x=(W-dw)/2,y=(H-dh)/2;if(dh>H*.96){dh=H*.96;dw=dh*1.5;x=(W-dw)/2;y=(H-dh)/2}
+c.save();c.shadowColor='rgba(0,0,0,.6)';c.shadowBlur=dw*.06;c.shadowOffsetY=dw*.03;var g=c.createLinearGradient(x,y,x,y+dh);g.addColorStop(0,'#46505a');g.addColorStop(.5,'#1c2229');g.addColorStop(1,'#0c0f12');rr(c,x,y,dw,dh,dh*.2);c.fillStyle=g;c.fill();c.restore();
+c.strokeStyle='rgba(255,255,255,.28)';c.lineWidth=2;rr(c,x+2,y+2,dw-4,dh-4,dh*.2);c.stroke();[.3,.5,.7].forEach(function(p){rr(c,x+dw-3,y+dh*p-dh*.05,dw*.025,dh*.1,3);c.fillStyle='#8895a1';c.fill();rr(c,x-dw*.022,y+dh*p-dh*.05,dw*.025,dh*.1,3);c.fill()});
+var m=dh*.07,sx=x+m,sy=y+m,sw=dw-2*m,sh=dh-2*m;rr(c,sx,sy,sw,sh,dh*.14);c.fillStyle='#03080d';c.fill();c.save();rr(c,sx,sy,sw,sh,dh*.14);c.clip();
+var u=sh/300,pad=sw*.04,txt=function(s,xx,yy,sz,col,al,wt){c.font=(wt||700)+' '+sz*u+'px Nunito,sans-serif';c.fillStyle=col;c.textAlign=al||'left';c.fillText(s,xx,yy)};
+var P=PS+.1005*S.D,po=S.fo*P,ndl=S.ndl,deco=S.ce>.3,spd=S.vs,alarm=spd>12||po>1.6||S.bar<=0;
+txt('O₂ '+Math.round(S.fo*100)+'%',sx+pad,sy+30*u,20,'#7fdcff');txt('PO₂ '+f(po,2),sx+sw-pad,sy+30*u,20,po>1.4?'#ff5252':'#8cf5a8','right');
+txt('DUBINA m',sx+pad,sy+62*u,14,'#7e97a8');txt(f(S.D,1),sx+pad,sy+150*u,92,S.D>40?'#ff5252':'#ffffff','left',800);
+var cx=sx+sw*.62;txt(deco?'DEKO':'NDL min',cx,sy+62*u,14,deco?'#ff7a7a':'#7e97a8');var nc=deco?'#ff5252':ndl<5?'#ff5252':ndl<10?'#ffd23f':'#8cf5a8';txt(deco?'STROP '+Math.ceil(S.ce/3)*3+' m':ndl>=99?'>99':String(Math.floor(ndl)),cx,sy+130*u,deco?34:70,nc,'left',800);
+var by=sy+176*u,bw=sw*.5/10;txt('BRZINA USPONA',sx+pad,by-6*u,12,'#7e97a8');for(var i=0;i<10;i++){var th=(i+1)*2,on=Math.max(0,spd)>=th-1.5;c.fillStyle=on?(i<4?'#2ddc7a':i<6?'#ffd23f':'#ff4040'):'#16222c';rr(c,sx+pad+i*(bw+3),by,bw,14*u,3);c.fill()}txt((spd>0.5?'↑ ':spd<-.5?'↓ ':'')+f(Math.abs(spd),0)+' m/min',sx+pad,by+44*u,22,spd>12?'#ff5252':spd>9.5?'#ffd23f':'#fff');
+for(i=0;i<16;i++){var M0=PS/B[i]+A[i],r=cl(S.T[i]/M0,0,1.1);c.fillStyle=r>1?'#ff5252':r>.85?'#ffd23f':'#2d8fb8';var bh=64*u*r;c.fillRect(sx+sw*.58+i*(sw*.37/16),by+64*u-bh,sw*.37/16-2,bh)}txt('TKIVA',sx+sw*.58,by-6*u,12,'#7e97a8');
+var ry=sy+sh-12*u,mm=Math.floor(S.dt/60),ss=Math.floor(S.dt%60);txt('VRIJEME '+mm+':'+(ss<10?'0':'')+ss,sx+pad,ry,15,'#cfefff');txt('MAX '+f(S.mx,1)+' m',sx+sw*.42,ry,15,'#cfefff');txt('BOCA '+Math.round(S.bar)+' bar',sx+sw-pad,ry,15,S.bar<50?'#ff5252':'#cfefff','right');
+var msg='',mc='#ff5252';if(spd>12){msg='USPORI IZRON!'}else if(po>1.4){msg='PO₂ VISOK, PLIĆE'}else if(S.bar<=0){msg='BOCA PRAZNA'}else if(deco&&S.D<S.ce+.3){msg='NE IZRANJAJ IZNAD STROPA'}else if(S.mx>=10&&S.D>=3&&S.D<=6.2&&S.stop>0){msg='SIGURNOSNI STOP '+Math.floor(S.stop/60)+':'+('0'+Math.floor(S.stop%60)).slice(-2);mc='#7fdcff'}else if(S.mx>=10&&S.stop<=0&&S.D<7&&S.D>0.3){msg='STOP ZAVRŠEN';mc='#8cf5a8'}
+if(msg&&(RM||Math.sin(t*8)>-.3||mc!=='#ff5252')){c.fillStyle=mc==='#ff5252'?'rgba(120,0,0,.88)':'rgba(0,50,70,.88)';rr(c,sx+sw*.12,sy+sh*.40,sw*.76,sh*.14,10);c.fill();txt(msg,sx+sw/2,sy+sh*.40+sh*.1,20,'#fff','center')}
+var gl=c.createLinearGradient(sx,sy,sx+sw,sy+sh);gl.addColorStop(0,'rgba(255,255,255,.10)');gl.addColorStop(.4,'rgba(255,255,255,0)');c.fillStyle=gl;c.fillRect(sx,sy,sw,sh);c.restore()},
+out:function(w){var S=w.S,h='<b>Dubina '+f(S.D,1)+' m</b> · cilj '+S.tgt+' m · NDL '+(S.ndl>=99?'>99':Math.floor(S.ndl))+' min. Pritisak okoline '+f(PS+.1005*S.D,2)+' bar; PO₂ = FO₂ × p = '+f(S.fo*(PS+.1005*S.D),2)+' bar (granica 1,4 bar). Sporo izroni (≤ 9–10 m/min) i radi sigurnosno zaustavljanje 3 min na 5 m.';if(w.hh!==h){w.hh=h;w.text(h)}}});
+if(!w)return;var S=w.S;function rs(){S.D=0;S.vs=0;S.mx=0;S.dt=0;S.bar=200;S.stop=180;S.T=[];for(var i=0;i<16;i++)S.T.push((PS-PW)*.7902);S.ndl=99;S.ce=0;S.tgt=S.tgt||0}
+rs();w.sl('Ciljna dubina',0,40,1,18,'tgt',function(v){return v+' m'});w.sl('Brzina promjene dubine',3,30,1,9,'rate',function(v){return v+' m/min'});w.sl('Ubrzanje vremena',1,60,1,20,'ts',function(v){return '×'+v});w.sel('Mješavina',[['Zrak (21%)',.21],['EAN32',.32],['EAN36',.36]],'fo',rs&&function(){});
+w.S.fo=.21;w.btn('⏸ Pauza',function(){S.pause=!S.pause;this.textContent=S.pause?'▶ Nastavi':'⏸ Pauza'});w.btn('↺ Novi zaron',function(){rs();w.set.tgt(0);S.tgt=0});
+var sel=w.box.querySelector('select');sel.onchange=function(){S.fo=+sel.value}})();
+X.ready1=true;})();
+
+(function(){'use strict';var X=window.__X;if(!X||!X.ready1)return;var u_=X.u,widget=X.widget,sec=X.sec,diver=X.diver,cl=u_.cl,lp=u_.lp,f=u_.f,rr=u_.rr,ball=u_.ball,bub=u_.bub,water=u_.water,sand=u_.sand,TAU=u_.TAU;
+
+/* ================= 18.3 ZANOŠENJE STRUJOM ================= */
+(function(){var KN=.514;
+function plan(S){var d=S.D,tdn=d/18*60,tb=S.tb*60,tup=(d>5&&S.st?(d-5)/9*60:d/9*60),ts=S.st?180:0,tup2=S.st?5/9*60:0,P=[[0,0],[tdn,d],[tdn+tb,d],[tdn+tb+tup,S.st?5:0]];if(S.st){P.push([P[3][0]+ts,5]);P.push([P[4][0]+tup2,0])}return P}
+function at(P,t){for(var i=1;i<P.length;i++)if(t<=P[i][0]){var a=P[i-1],b=P[i],k=(t-a[0])/Math.max(1e-6,b[0]-a[0]);return lp(a[1],b[1],k)}return 0}
+var w=widget((function(){var a=document.querySelectorAll('section.s');for(var i=0;i<a.length;i++)if(a[i].querySelector('h2')&&/Zanošenje|18\.3/.test(a[i].textContent)&&a[i].id==='fizika'&&a[i].previousElementSibling&&a[i].previousElementSibling.id==='st-viz')return a[i];return document.querySelector('#st-viz')})(),{id:'x-drift',r:.56,rn:1.05,title:'Animacija 18.3: zanošenje strujom',alt:'Bočni i gornji prikaz zanošenja ronioca strujom tokom zarona',
+lead:'Struja nosi ronioca cijelo vrijeme zarona, i dok se spušta, i na dnu, i pri izronu. Podesi struju, dubinu i vrijeme pa pokreni zaron: vidi gdje izroniš u odnosu na čamac.',
+note:'Pojednostavljeni model: ista struja na svim dubinama; spuštanje 18 m/min, uspon 9 m/min. 1 čvor = 0,514 m/s. Udaljenost = brzina struje × vrijeme. Zato izron uz SMB bovu i plan protiv struje.',
+step:function(w,dt){var S=w.S;S.P=plan(S);S.T=S.P[S.P.length-1][0];if(S.play){S.p=Math.min(S.T,S.p+dt*S.T/12);if(S.p>=S.T)S.play=false}},
+draw:function(c,W,H,t,w){var S=w.S,P=S.P,u=(S.vc-S.vs)*KN,X1=u*S.T,x0=W*.04,pw=W*.64,sy=H*.14,sh=H*.74,Dm=Math.max(S.D,10);
+var span=Math.max(120,Math.abs(X1)*1.15),lo=X1<0?-span*.15-Math.abs(X1):-span*.1,sc=pw/(span*1.1+(X1<0?Math.abs(X1):0));var ox=x0+(X1<0?Math.abs(X1)*sc+span*.05*sc:span*.06*sc);
+water(c,W,H,t);c.fillStyle='#bfe9ff';c.fillRect(0,sy-4,pw+x0*2,4);sand(c,pw+x0*2,H,sy+sh+4);
+var py=function(d){return sy+d/Dm*sh};
+c.strokeStyle='rgba(255,255,255,.18)';c.fillStyle='rgba(255,255,255,.55)';c.font='600 11px Nunito';c.textAlign='left';for(var d=0;d<=Dm;d+=Dm>20?10:5){c.beginPath();c.moveTo(x0,py(d));c.lineTo(pw+x0,py(d));c.stroke();c.fillText(d+' m',x0+2,py(d)-3)}
+/* current arrows */
+if(S.vc>0.01){c.strokeStyle='rgba(160,240,255,.5)';c.lineWidth=2;for(var j=0;j<4;j++){var yy=sy+sh*(.2+j*.22),off=(t*40*S.vc+j*70)%(pw*.3);for(var k=0;k<4;k++){var ax=x0+((off+k*pw*.26)%pw);c.beginPath();c.moveTo(ax,yy);c.lineTo(ax+26,yy);c.lineTo(ax+19,yy-5);c.moveTo(ax+26,yy);c.lineTo(ax+19,yy+5);c.stroke()}}}
+/* path */
+c.lineWidth=3;c.strokeStyle='#ffcb29';c.setLineDash([7,6]);c.beginPath();var tt=0,first=true;for(tt=0;tt<=S.T;tt+=S.T/80){var px=ox+u*tt*sc,pyy=py(at(P,tt));if(first){c.moveTo(px,pyy);first=false}else c.lineTo(px,pyy)}c.stroke();c.setLineDash([]);
+/* boat at origin */
+var bx=ox,by=sy-2;c.fillStyle='#f3f6f8';c.beginPath();c.moveTo(bx-34,by-14);c.lineTo(bx+34,by-14);c.lineTo(bx+24,by+2);c.lineTo(bx-26,by+2);c.fill();c.fillStyle='#D6232A';c.fillRect(bx-34,by-14,68,5);c.fillStyle='#e9eef2';c.fillRect(bx-6,by-28,18,14);c.strokeStyle='#8ea';c.lineWidth=1.5;c.beginPath();c.moveTo(bx,by+2);c.lineTo(bx,py(Math.min(Dm,S.D*.0+8)));c.stroke();c.fillStyle='#fff';c.font='700 11px Nunito';c.textAlign='center';c.fillText('čamac',bx,by-32);
+/* diver */
+var dt_=Math.min(S.p,S.T),dx=ox+u*dt_*sc,dd=at(P,dt_),ph=dt_>S.P[2][0];if(ph){c.strokeStyle='rgba(255,210,50,.8)';c.lineWidth=2;c.beginPath();c.moveTo(dx,py(dd));c.lineTo(dx,sy-6);c.stroke();ball(c,dx,sy-8,8,'#ff8a00')}
+diver(c,dx,py(dd),.34,{trim:(dt_<S.P[1][0]?.9:dt_>S.P[2][0]?-.9:0)*(u>=0?1:1),knee:.3});
+if(S.p>=S.T){c.fillStyle='#fff';c.font='800 15px Nunito';c.textAlign='center';c.fillText('Izron '+Math.round(Math.abs(X1))+' m '+(X1>=0?'niz struju':'uz struju')+' od čamca',Math.min(pw,Math.max(80,dx)),sy-44)}
+/* plan view */
+var mx=pw+x0*2+W*.02,mw=W-mx-W*.02,mh=H*.52,my=H*.12;c.fillStyle='rgba(2,20,32,.7)';rr(c,mx,my,mw,mh,14);c.fill();c.strokeStyle='rgba(255,255,255,.3)';c.lineWidth=1.5;c.stroke();c.fillStyle='#bfe9ff';c.font='700 11px Nunito';c.textAlign='center';c.fillText('GORNJI PRIKAZ (karta)',mx+mw/2,my+16);
+var ms=Math.min(mw*.8,mh*.7)/Math.max(100,Math.abs(X1)),cx0=mx+mw/2-(Math.max(100,Math.abs(X1))*ms/2)*Math.sign(X1||1)*.0-0,x00=X1>=0?mx+mw*.14:mx+mw*.86,y00=my+mh*.55;
+c.strokeStyle='rgba(255,255,255,.12)';for(var r=100;r<=Math.max(300,Math.abs(X1)*1.2);r+=100){c.beginPath();c.arc(x00,y00,r*ms,0,TAU);c.stroke()}
+c.fillStyle='#fff';c.beginPath();c.moveTo(x00-10,y00);c.lineTo(x00,y00-5);c.lineTo(x00+10,y00);c.lineTo(x00,y00+5);c.fill();c.strokeStyle='#ffcb29';c.lineWidth=2.5;c.beginPath();c.moveTo(x00,y00);c.lineTo(x00+u*Math.min(S.p,S.T)*ms,y00);c.stroke();ball(c,x00+u*Math.min(S.p,S.T)*ms,y00,5,'#ffcb29');c.fillStyle='#8cf0ff';c.font='700 11px Nunito';c.textAlign='left';c.fillText('→ struja '+f(S.vc,1)+' čv',mx+10,my+mh-10);
+var ay=my+mh+22;c.fillStyle='#fff';c.textAlign='left';c.font='700 12px Nunito';c.fillText('Vrijeme zarona: '+f(S.T/60,1)+' min',mx,ay);c.fillText('Zanošenje: '+Math.round(Math.abs(X1))+' m',mx,ay+18)},
+out:function(w){var S=w.S,u=(S.vc-S.vs)*KN,h='Brzina zanošenja: <b>'+f(S.vc,1)+' čv × 0,514 = '+f(S.vc*KN,2)+' m/s</b>'+(S.vs>0?'; plivanje protiv struje '+f(S.vs,1)+' čv smanjuje zanos na '+f(Math.abs(u),2)+' m/s':'')+'. Za '+f(S.T/60,1)+' min zanos je <b>'+Math.round(Math.abs(u*S.T))+' m</b>. '+(S.vs>0?'Plivanje protiv struje troši mnogo zraka: počni zaron uz struju, kad je zraka najviše.':'Sigurnosno zaustavljanje od 3 min u struji od 1 čvora znači oko 93 m zanosa, zato se radi uz SMB bovu.');if(w.hh!==h){w.hh=h;w.text(h)}}});
+if(!w)return;var S=w.S;S.p=0;S.play=false;S.P=[[0,0],[1,0]];S.T=1;
+w.sl('Struja',0,3,.1,1,'vc',function(v){return f(v,1)+' čv'});w.sl('Dubina',5,30,1,18,'D',function(v){return v+' m'});w.sl('Vrijeme na dnu',5,40,1,20,'tb',function(v){return v+' min'});w.sl('Plivanje protiv struje',0,1.5,.1,0,'vs',function(v){return f(v,1)+' čv'});
+w.sel('Sigurnosni stop 3 min na 5 m',[['Da',1],['Ne',0]],'st');S.st=1;w.box.querySelector('select').onchange=function(){S.st=+this.value};w.btn('▶ Pokreni zaron',function(){S.p=0;S.play=true});w.btn('⏸ Pauza',function(){S.play=!S.play&&S.p<S.T})})();
+
+/* ================= 19.3 PODIZANJE POTONULOG ČAMCA ================= */
+(function(){var RHO=1.025;function P(d){return 1.013+.1005*d}
+var w=widget(sec('#sr-viz'),{id:'x-lift',r:.62,rn:1.0,title:'Simulacija: podizanje potonulog čamca dizalicom (lift bag)',alt:'Podizanje potonulog čamca vrećom za podizanje i prikaz širenja zraka pri izronu',
+lead:'Čamac na dnu ima prividnu težinu pod vodom. Dodaj zrak u vreću dok uzgon ne pređe težinu. Pazi: zrak se širi kako teret izrnja, a uspon se ubrzava.',
+note:'Pojednostavljeni model, otvorena vreća s ventilom. Ronilac ne vezuje uže za sebe, ne vozi teret i ostaje ispod vreće. Cilj je kontrolisan uspon do 9–10 m/min uz ispuštanje zraka kroz ventil.',
+step:function(w,dt){var S=w.S;if(S.rs){S.rs=false;S.d=S.D;S.N=0;S.v=0;S.max=0;S.state=0}var db=Math.max(0,S.d-2),p=P(db),V=S.N/p;S.vent=0;if(V>S.cap){S.N=S.cap*p;V=S.cap;S.vent=1}S.V=V;var F=RHO*V-S.m;S.F=F;var vt=F>0?.085*Math.sqrt(F):(S.d<S.D?-.085*Math.sqrt(-F):0);if(S.d>=S.D&&F<=0)vt=0;S.v+=(vt-S.v)*Math.min(1,dt*2.2);S.d-=S.v*dt;if(S.d<=0){S.d=0;S.v=0;S.state=S.max>12?2:1}if(S.d>S.D){S.d=S.D;S.v=Math.min(0,S.v)}S.mpm=S.v*60;if(S.mpm>S.max)S.max=S.mpm;if(S.state&&S.d>.1&&S.F<=0)S.state=0},
+draw:function(c,W,H,t,w){var S=w.S;water(c,W,H,t);var sy=H*.12,by=H*.9,Dm=S.D,py=function(d){return sy+d/Dm*(by-sy)};
+c.fillStyle='#bfe9ff';c.fillRect(0,sy-3,W,3);sand(c,W,H,by);c.fillStyle='rgba(255,255,255,.5)';c.font='600 11px Nunito';c.textAlign='left';[0,Math.round(Dm/2),Dm].forEach(function(d){c.fillText(d+' m',6,py(d)-3)});
+/* support boat */
+var bx=W*.82,by2=sy-2;c.fillStyle='#f3f6f8';c.beginPath();c.moveTo(bx-60,by2-16);c.lineTo(bx+60,by2-16);c.lineTo(bx+44,by2+3);c.lineTo(bx-46,by2+3);c.fill();c.fillStyle='#D6232A';c.fillRect(bx-60,by2-16,120,6);c.fillStyle='#e9eef2';c.fillRect(bx-14,by2-34,30,18);
+var lx=W*.4,dy=py(S.d),load_y=dy+6,k=Math.min(W,H*1.6)/320;
+/* sunken boat (load) */
+c.save();c.translate(lx,load_y);c.scale(k,k);c.rotate(S.d>=S.D-.01?.12:0);c.fillStyle='#8c6a3f';c.beginPath();c.moveTo(-60,-8);c.lineTo(60,-8);c.lineTo(46,14);c.lineTo(-48,14);c.closePath();c.fill();c.fillStyle='#c9ccd0';c.fillRect(-60,-12,120,5);c.fillStyle='#6a7a86';c.fillRect(-10,-26,28,16);c.restore();
+/* bag */
+var vr=Math.sqrt(S.V/Math.max(1,S.cap)),bw=(14+34*vr)*k,bh=(18+50*vr)*k,byc=dy-6*k-bh*.5-10*k;if(S.N<.5){bw=10*k;bh=6*k;byc=dy-18*k}
+c.strokeStyle='#ffe28a';c.lineWidth=2;c.beginPath();c.moveTo(lx,dy-6);c.lineTo(lx,byc+bh*.5);c.stroke();
+var g=c.createRadialGradient(lx-bw*.3,byc-bh*.3,3,lx,byc,bh);g.addColorStop(0,'#ffe7a0');g.addColorStop(.5,'#ff9f1c');g.addColorStop(1,'#b84a00');c.fillStyle=g;c.beginPath();c.ellipse(lx,byc,bw,bh*.5,0,0,TAU);c.fill();c.strokeStyle='rgba(255,255,255,.4)';c.lineWidth=2;c.stroke();
+if(S.vent)for(var i=0;i<6;i++)bub(c,lx+Math.sin(t*3+i)*8,byc+bh*.5-((t*60+i*20)%90),3);
+/* diver below bag, stays */
+diver(c,Math.max(90,lx-W*.3),py(Math.max(0,S.D-1.2)),.26*k*1.2,{trim:.1,knee:.35});
+/* speed meter */
+var mv=Math.max(0,S.mpm);c.fillStyle='rgba(2,20,32,.7)';rr(c,W-150,H-92,140,82,12);c.fill();c.fillStyle='#fff';c.font='700 12px Nunito';c.textAlign='left';c.fillText('Brzina podizanja',W-140,H-72);c.font='800 22px Nunito';c.fillStyle=mv>12?'#ff5252':mv>10?'#ffd23f':'#8cf5a8';c.fillText(f(mv,0)+' m/min',W-140,H-46);c.font='600 11px Nunito';c.fillStyle='#bfe9ff';c.fillText('cilj ≤ 9–10 m/min',W-140,H-26);
+if(S.state==1||S.state==2){c.fillStyle='rgba(0,50,70,.85)';rr(c,W*.1,H*.4,W*.5,50,12);c.fill();c.fillStyle=S.state==2?'#ffb3b3':'#8cf5a8';c.font='800 16px Nunito';c.textAlign='center';c.fillText(S.state==2?'Na površini, ali izron je bio prebrz ('+f(S.max,0)+' m/min)':'Teret je na površini: kontrolisano podizanje',W*.35,H*.4+31)}},
+out:function(w){var S=w.S,need=S.m/RHO,h='Težina čamca pod vodom <b>'+S.m+' kg</b> traži najmanje <b>'+Math.ceil(need)+' L</b> zraka u vreći na toj dubini (m ÷ 1,025). Sada: zapremina '+f(S.V,0)+' L, uzgon '+f(RHO*S.V,0)+' kg, <b>višak uzgona '+f(S.F,0)+' kg</b>. Na dubini '+f(S.d,1)+' m pritisak je '+f(P(S.d),2)+' bar; pri izronu se zrak širi (Boyleov zakon), pa uspon ubrzava dok ne ispustiš zrak.';if(w.hh!==h){w.hh=h;w.text(h)}}});
+if(!w)return;var S=w.S;function rs(){S.rs=true}S.rs=false;S.d=15;S.N=0;S.v=0;S.max=0;S.state=0;S.cap=500;S.V=0;S.F=-300;S.mpm=0;
+w.sl('Težina čamca pod vodom',50,1000,10,300,'m',function(v){return v+' kg'},rs);w.sl('Dubina',5,30,1,15,'D',function(v){return v+' m'},rs);w.sel('Kapacitet vreće',[['500 L',500],['250 L',250],['1000 L',1000]],'cap');
+function add(L){return function(){S.N+=L*P(Math.max(0,S.d-2))}}w.btn('+ 25 L zraka',add(25));w.btn('+ 100 L zraka',add(100));w.btn('− Ispusti 25 L',function(){S.N=Math.max(0,S.N-25*P(Math.max(0,S.d-2)))});w.btn('↺ Ponovi',rs)})();
+
+/* ================= 25.2 SAVRŠENA PLOVNOST ================= */
+(function(){var w=widget(sec('#pb-viz'),{id:'x-trim',r:.56,rn:.95,title:'Animacija: idealan položaj tijela (trim) ronioca',alt:'Ronilac u horizontalnom položaju s podešavanjem nagiba trupa, položaja nogu i glave',
+lead:'Savršena plovnost je i savršen položaj tijela: horizontalan trup, glava u liniji kičme, koljena blago savijena i peraje u visini trupa. Mijenjaj parametre i prati ocjenu položaja.',
+note:'Orijentaciona ocjena u svrhu učenja. Trim ispravljaš raspodjelom balasta, zrakom u prslucima i položajem tijela. Fino podešavanje plovnosti radiš mirnim, dubokim disanjem.',
+draw:function(c,W,H,t,w){var S=w.S;water(c,W,H,t);var k=Math.min(W/420,H/230)*1.0;var br=S.br>0?Math.sin(t*1.3)*S.br*10:0,cx=W*.44,cy=H*.5+br;
+c.strokeStyle='rgba(255,255,255,.35)';c.setLineDash([8,6]);c.lineWidth=1.5;c.beginPath();c.moveTo(W*.06,cy);c.lineTo(W*.94,cy);c.stroke();c.setLineDash([]);c.fillStyle='rgba(140,245,168,.12)';c.fillRect(W*.06,cy-14,W*.88,28);c.fillStyle='rgba(255,255,255,.7)';c.font='700 11px Nunito';c.textAlign='left';c.fillText('0° = horizontalna ravan (idealno ±5°)',W*.07,cy-18);
+c.strokeStyle='rgba(180,240,255,.25)';c.lineWidth=1.5;var cs=Math.abs(Math.sin(S.tr*Math.PI/180))*.6+Math.abs(S.kn-.35)*.15+Math.abs(S.hd)/90*.2;for(var i=0;i<6;i++){var y=H*(.12+i*.15),off=(t*70+i*50)%(W*1.2)-W*.1;c.beginPath();c.moveTo(off,y);c.bezierCurveTo(off+40,y+(y<cy?-1:1)*cs*30,off+80,y+(y<cy?-1:1)*cs*30,off+120,y);c.stroke()}
+diver(c,cx,cy,1.35*k*.9,{trim:S.tr*Math.PI/180,knee:S.kn,head:S.hd*Math.PI/180});
+var mx=cx+85*1.35*k*.9*Math.cos(S.tr*Math.PI/180)+14,my=cy+85*1.35*k*.9*Math.sin(S.tr*Math.PI/180)-4;for(i=0;i<5;i++)bub(c,mx+Math.sin(t*2+i)*4,my-((t*40+i*28)%110),2.2+i%2);
+c.strokeStyle='#ffcb29';c.lineWidth=2;c.beginPath();c.arc(cx,cy,60*k,0,S.tr*Math.PI/180,S.tr<0);c.stroke();c.fillStyle='#ffcb29';c.font='800 13px Nunito';c.fillText('θ = '+f(S.tr,0)+'°',cx+64*k,cy+(S.tr>=0?16:-8));
+var sc=S.score;c.fillStyle='rgba(2,20,32,.72)';rr(c,W-170,12,158,66,12);c.fill();c.fillStyle='#fff';c.font='700 12px Nunito';c.textAlign='left';c.fillText('Ocjena položaja',W-160,32);c.fillStyle='rgba(255,255,255,.15)';rr(c,W-160,40,138,12,6);c.fill();c.fillStyle=sc>85?'#2ddc7a':sc>60?'#ffd23f':'#ff5252';rr(c,W-160,40,Math.max(8,138*sc/100),12,6);c.fill();c.font='800 14px Nunito';c.fillText(Math.round(sc)+'%  '+(sc>85?'odlično':sc>60?'može bolje':'korigiraj'),W-160,70)},
+step:function(w,dt){var S=w.S;S.score=cl(100-2.6*Math.abs(S.tr)-30*Math.abs(S.kn-.35)-1.2*Math.abs(S.hd)-(S.br>.8?6:0),0,100);if(S.go){var tg={tr:0,kn:.35,hd:0};['tr','kn','hd'].forEach(function(k){S[k]+=(tg[k]-S[k])*Math.min(1,dt*3);w.set[k]&&w.set[k](S[k])});if(Math.abs(S.tr)<.2&&Math.abs(S.hd)<.3&&Math.abs(S.kn-.35)<.01)S.go=false}},
+out:function(w){var S=w.S,m=[];m.push(Math.abs(S.tr)<=5?'trup je horizontalan':S.tr>0?'trup nagnut glavom dolje: veći frontalni otpor, noge pretežke ili previše zraka pozadi':'trup nagnut glavom gore: noge pretežke ili previše zraka u prsluku');m.push(Math.abs(S.kn-.35)<.2?'koljena blago savijena, peraje u visini trupa':S.kn<.15?'noge spuštene: peraje dižu mulj i povećavaju otpor':'peraje previsoko: gubiš kontrolu položaja');m.push(Math.abs(S.hd)<8?'glava u liniji kičme':'glava previše '+(S.hd>0?'spuštena':'podignuta')+': napinje vrat, remeti trim');var h='<b>'+m.join('; ')+'.</b><br>Ideal: horizontalan trup, ravna leđa, koljena blago savijena, ruke ispred ili uz tijelo, mirno duboko disanje. Plovnost podešavaš dahom: udah te blago podiže, izdah spušta.';if(w.hh!==h){w.hh=h;w.text(h)}}});
+if(!w)return;var S=w.S;S.score=50;w.sl('Nagib trupa (θ)',-30,30,1,18,'tr',function(v){return v+'°'});w.sl('Položaj nogu',-1,1,.05,-.4,'kn',function(v){return v<.1?'spuštene':v>.6?'podignute':'blago savijene'});w.sl('Glava',-25,25,1,12,'hd',function(v){return v+'°'});w.sl('Dubina disanja',0,1,.1,.5,'br',function(v){return v==0?'zadržan dah':v<.4?'plitko':'duboko, mirno'});
+w.btn('✔ Postavi savršen položaj',function(){S.go=true})})();
+X.start()})();
 </script>
 </body>
 </html>
